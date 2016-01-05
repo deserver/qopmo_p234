@@ -16,6 +16,8 @@ import qopmo.ag.Individuo;
 import qopmo.ag.Solucion;
 import qopmo.ag.operadores.OperadorCruce;
 
+import jmetal.core.Solution;
+
 /**
  * Implementación específica del Cruce mencionado en paper de cnunez.
  * <p>
@@ -39,11 +41,11 @@ public class CruceLink implements OperadorCruce {
 
 	@Override
 	public Individuo cruzar(Individuo i1, Individuo i2) {
-		Solucion s1 = (Solucion) i1;
-		Solucion s2 = (Solucion) i2;
+		Solution s1 = (Solution) i1;
+		Solution s2 = (Solution) i2;
 
 		Collection<Servicio> hijoAux = new ArrayList<Servicio>();
-		Solucion hijo = new Solucion();
+		Solution hijo = new Solution(4);
 
 		List<Nodo> primeros = new ArrayList<Nodo>();
 		List<Nodo> iguales = new ArrayList<Nodo>();

@@ -43,6 +43,7 @@ import qopmo.ag.Solucion;
 import qopmo.wdm.Camino;
 import qopmo.wdm.CanalOptico;
 import qopmo.wdm.Enlace;
+import qopmo.wdm.Salto;
 import qopmo.wdm.qop.EsquemaRestauracion;
 import qopmo.wdm.qop.Nivel;
 import qopmo.wdm.qop.Servicio;
@@ -148,6 +149,10 @@ public class Solution implements Serializable, Individuo {
   public int contadorFailOroAlternativo = 0;
   @Transient
   public int contadorFailPlataAlternativo = 0;
+	@Transient
+	private int diferenciaNiveles = 0;
+	@Transient
+	private double ganancia = 0.0;
   @Transient
   public Set<Enlace> enlacesContado;
 
@@ -172,6 +177,24 @@ public class Solution implements Serializable, Individuo {
 	this.fitness_ = Double.MAX_VALUE;
 	this.costo = Double.MAX_VALUE;
   } // Solution
+  
+	public Solution(Individuo i) {
+		Solution s = (Solution) i;
+		genes = s.copiarGenes();
+		id = s.getId();
+		fitness_ = s.getFitness();
+		costo = s.getCosto();
+		contadorFailOroPrimario = s.getContadorFailOro();
+		contadorFailPlataPrimario = s.getContadorFailPlata();
+		contadorFailBroncePrimario = s.getContadorFailBronce();
+		contadorFailOroAlternativo = s.getContadorFailOroAlternativo();
+		contadorFailPlataAlternativo = s.getContadorFailPlataAlternativo();
+		diferenciaNiveles = s.getDiferenciaNiveles();
+		ganancia = s.getGanancia();
+		contadorCosto = s.contadorCosto;
+		cambiosLDO = s.cambiosLDO;
+	    objective_          = new double[this.numberOfObjectives_];
+	}
 
   /**
    * Constructor
@@ -288,6 +311,13 @@ public class Solution implements Serializable, Individuo {
     location_             = solution.getLocation();
   } // Solution
 
+	public double getGanancia() {
+		return ganancia;
+	}
+
+	public void setGanancia(double ganancia) {
+		this.ganancia = ganancia;
+	}
   /**
    * Sets the distance between this solution and a <code>SolutionSet</code>.
    * The value is stored in <code>distanceToSolutionSet_</code>.
@@ -767,13 +797,37 @@ public class Solution implements Serializable, Individuo {
 		this.contadorFailBroncePrimario = 0;
 
 		// Costo de una Solucion
-		this.costo = this.costoTotalCanales2();
-		// Fitness de la Solución
-		this.fitness_ = 1 / this.costo;
-
+		if (this.costoTotalCanales()>0){
+			this.costo = this.costoTotalCanales();
+			// Fitness de la Solución
+			this.fitness_ = 1 / this.costo;
+			this.evaluarProbabilidadRecuperacion();
+			this.diferenciaNiveles();	
+		}
 		return this.fitness_;
 	}
 	
+	public int getDiferenciaNiveles() {
+		return diferenciaNiveles;
+	}
+
+	public void setDiferenciaNiveles(int diferenciaNiveles) {
+		this.diferenciaNiveles = diferenciaNiveles;
+	}
+	
+	public void diferenciaNiveles() {
+		this.setDiferenciaNiveles(this.evaluarNivel());
+		this.setGanancia(this.evaluarGananciaNivel());
+	}
+
+	/*
+	 * Función para llamar a las funciones necesarias para calcular la
+	 * Probabilidad de Recuperación de Cada Servicio.
+	 */
+	public void evaluarProbabilidadRecuperacion() {
+		this.competenciasDePrimarios();
+		this.competenciasDirectas();
+	}
 	public int contadorCosto;
 	public int cambiosLDO;
 	/*
@@ -849,6 +903,87 @@ public class Solution implements Serializable, Individuo {
 		return costo;
 	}
 
+	/*
+	 * Obtiene el costo total de los canales utilizados en la solución.
+	 * 
+	 * @return
+	 */
+	private double costoTotalCanales() {
+		contadorCosto = 0;
+		cambiosLDO = 0;
+		enlacesContado = new HashSet<Enlace>();
+		/*
+		 * El cálculo de las variables del costo se suman para cada gen
+		 * (Servicio) del individuo (Solucion).
+		 */
+		for (Servicio gen : this.genes) {
+
+			if (gen == null || !gen.esValido())
+				continue;
+
+			// Se cuenta cada Oro que no tiene un alternativo.
+			if (!gen.oroTieneAlternativo())
+				this.contadorFailOroAlternativo++;
+
+			// Se cuenta que Nivel M que no tiene un alternativo.
+			if (!gen.plataTieneAlternativo())
+				this.contadorFailPlataAlternativo++;
+
+			/*
+			 * Evaluacion Primario: Si no tiene primario se cuenta como Error.
+			 * Si tiene primario se suman sus costos de Canales Opticos
+			 * utilizados y se cuentan los cambios de Longitud de Onda
+			 * realizados.
+			 */
+			Camino primario = gen.getPrimario();
+
+			if (primario.getDestino() == null) {
+				Nivel nivel = gen.getSolicitud().getNivel();
+				if (nivel.esOro()) {
+					this.contadorFailOroPrimario++;
+				} else if (nivel.esBronce()) {
+					this.contadorFailBroncePrimario++;
+					// (nivel.ordinal() >= Nivel.Plata0.ordinal())
+				} else if (nivel.esPlata()) {
+					this.contadorFailPlataPrimario++;
+				}
+
+			} else {
+				// Se cuentan y suman los enlaces y cambios de longitud de onda
+				// del primario.
+				contadorInterno(primario.getEnlaces());
+			}
+
+			/*
+			 * Evaluación Alternativo: Si tiene alternativo se suman los costos
+			 * de Canales Opticos utilizados y se cuentan los cambios de
+			 * Longitud de Onda realizados. Link-Oriented es un caso especial.
+			 */
+			if (!gen.getSolicitud().getNivel().esBronce()) {
+				if (gen.getSolicitud().getEsquema() != EsquemaRestauracion.Link) {
+					Camino alternativo = gen.getAlternativo();
+					if (alternativo.getDestino() != null) {
+						contadorInterno(alternativo.getEnlaces());
+					}
+				} else {
+					if (gen.getAlternativoLink() != null) {
+						for (Camino alternativo : gen.getAlternativoLink()) {
+							if (alternativo != null) {
+								contadorInterno(alternativo.getEnlaces());
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Fórmula de Costo de una Solución
+		double costo = (contadorCosto * a) + (cambiosLDO * b);
+		if (costo != 0)
+			return costo;
+		else
+			return -1;
+	}
 	/**
 	 * Cuenta la cantidad de Enlaces y los cambios de longitud de onda de los
 	 * enlaces obtenidos como parámetro. Se suman a los atributos locales
@@ -863,7 +998,9 @@ public class Solution implements Serializable, Individuo {
 		int ldo1 = 0;
 		int ldo2 = 0;
 		boolean primero = true;
-
+		if (enlaces == null)
+			return;
+		
 		for (Enlace s : enlaces) {
 			if (s == null)
 				continue;
@@ -895,6 +1032,93 @@ public class Solution implements Serializable, Individuo {
 
 	}
 	
+	/**
+	 * Función que obtiene por cada Servicio los Servicios cuyo caminos
+	 * primarios comparten algún Canal Óptico.
+	 */
+	public void competenciasDePrimarios() {
+
+		for (Servicio gen1 : this.genes) {
+			if (gen1 == null) {
+				continue;
+			}
+
+			for (Servicio gen2 : this.genes) {
+
+				if (gen2 == null || gen1.compareTo(gen2) >= 0) {
+					continue;
+				}
+				this.contadorIguales(gen1, gen2);
+			}
+		}
+	}
+	
+	/*
+	 * Proceso que identifica y almacena los servicios cuyo par de enlaces (e y
+	 * e2) del camino primario de dos Servicios (gen1 y gen2 respectivamente)
+	 * están en el mismo canalOptico (definición de equals).
+	 */
+	private void contadorIguales(Servicio gen1, Servicio gen2) {
+
+		Camino c1 = gen1.getPrimario();
+		if (c1 == null || c1.getDestino() == null)
+			return;
+		Camino c2 = gen2.getPrimario();
+		
+		if (c2 == null || c2.getDestino() == null)
+			return;
+
+		for (Salto s : c1.getSaltos()) {
+			Enlace e = s.getEnlace();
+			for (Salto s2 : c2.getSaltos()) {
+				Enlace e2 = s2.getEnlace();
+				if (e.equals2(e2)) {
+					procesarServiciosSolapados(gen1, gen2, e, e2);
+					// break;
+				}
+			}
+		}
+	}
+	
+	/*
+	 * Procesa los Servicios Solapados. Como los enlaces e y e2 son iguales se
+	 * almacenan como servicios solapados entre los servicios comparados. Los
+	 * servicios se intercambian y almacenan como Servicios Sopalados.
+	 */
+	private void procesarServiciosSolapados(Servicio gen1, Servicio gen2,
+			Enlace e, Enlace e2) {
+		Set<Servicio> servicios1 = gen1.getServiciosSolapados(e);
+		servicios1.add(gen2);
+		gen1.getServiciosSolapados().put(e, servicios1);
+		Set<Servicio> servicios2 = gen2.getServiciosSolapados(e2);
+		servicios2.add(gen1);
+		gen2.getServiciosSolapados().put(e2, servicios2);
+
+	}
+	
+	/**
+	 * Función que recorre cada gen y calcula su probabilidad de Recuperación.
+	 */
+	public void competenciasDirectas() {
+
+		for (Servicio gen : this.genes) {
+			if (gen == null) {
+				continue;
+			}
+			gen.calcularProbabilidad();
+		}
+	}
+	
+	/**
+	 * Función que compara la solucion con otra. Si los valores resultantes son
+	 * 0, entonces las soluciones son iguales, si los valores resultantes son
+	 * menores a 0, esta solucion es mejor; y si son mayores a 0 el parametro
+	 * recibido es mejor. Las prioridades siguen el siguiente orden:
+	 * Primario_Oro, Secundario_Oro, Primario_Plata, Secundario_Plata, Bronce.
+	 * 
+	 * @param s
+	 * @return
+	 */
 	public boolean comparar(Individuo i) {
 		Solution s = (Solution) i;
 		boolean retorno = false;
@@ -902,45 +1126,82 @@ public class Solution implements Serializable, Individuo {
 		oroP -= s.contadorFailOroPrimario;
 		int oroA = this.contadorFailOroAlternativo;
 		oroA -= s.contadorFailOroAlternativo;
-		/*
-		 * int plataP = this.contadorFailPlataPrimario; plataP -=
-		 * s.contadorFailPlataPrimario; int plataA =
-		 * this.contadorFailPlataAlternativo; plataA -=
-		 * s.contadorFailPlataAlternativo; int bronce =
-		 * this.contadorFailBroncePrimario; bronce -=
-		 * s.contadorFailBroncePrimario;
-		 */
+		int plataP = this.contadorFailPlataPrimario;
+		plataP -= s.contadorFailPlataPrimario;
+		int plataA = this.contadorFailPlataAlternativo;
+		plataA -= s.contadorFailPlataAlternativo;
+		int bronce = this.contadorFailBroncePrimario;
+		bronce -= s.contadorFailBroncePrimario;
+		int nivel = this.getDiferenciaNiveles() - s.getDiferenciaNiveles();
+		// nivel = 0;
 		double costoResultante = this.costo - s.costo;
 
 		if (oroP == 0) {
 			if (oroA == 0) {
-				if (costoResultante == 0) {
-					retorno = false;
+				if (plataP == 0) {
+					if (plataA == 0) {
+						if (bronce == 0) {
+							if (nivel == 0) {
+								if (costoResultante <= 0)
+									retorno = false;
+								else
+									retorno = true;
+							} else {
+								if (nivel < 0)
+									retorno = false;
+								else
+									retorno = true;
+							}
+						} else {
+							if (bronce < 0)
+								retorno = false;
+							else
+								retorno = true;
+						}
+					} else {
+						if (plataA < 0)
+							retorno = false;
+						else
+							retorno = true;
+					}
 				} else {
-					if (costoResultante > 0)
-						retorno = true;
-					else
+					if (plataP < 0)
 						retorno = false;
+					else
+						retorno = true;
 				}
 			} else {
-				if (oroA > 0)
-					retorno = true;
-				else
+				if (oroA < 0)
 					retorno = false;
+				else
+					retorno = true;
 			}
 		} else {
-			if (oroP > 0)
-				retorno = true;
-			else
+			if (oroP < 0)
 				retorno = false;
+			else
+				retorno = true;
 		}
 
 		return retorno;
 	}
-	/*
-	 * OPERACIONES SOBRE LA SOLUCION
-	 */
 
+
+	private int evaluarNivel() {
+		int valor = 0;
+		for (Servicio s : this.genes) {
+			valor += s.evaluarNivel();
+		}
+		return valor;
+	}
+
+	public double evaluarGananciaNivel() {
+		double valor = 0.0;
+		for (Servicio s : this.genes) {
+			valor += s.getSolicitud().getNivel().ganancia(s.getpRecuperacion());
+		}
+		return valor;
+	}
 	/**
 	 * Función para generar Servicios Randómicos.
 	 * 
@@ -967,6 +1228,34 @@ public class Solution implements Serializable, Individuo {
 			s.getSolicitud().setEsquema(EsquemaRestauracion.Segment);
 		}
 	}
+	
+	private String totalFallas() {
+		String resultado = "";
+		resultado = "Oro:" + this.contadorFailOroPrimario + "-"
+				+ this.contadorFailOroAlternativo + "; Medios:"
+				+ this.contadorFailPlataPrimario + "-"
+				+ this.contadorFailPlataAlternativo + "; Bronce:"
+				+ this.contadorFailBroncePrimario + ";";
+		return resultado;
+	}
+
+	public String obtenerDetalleCosto() {
+		String retorno = "_" + this.contadorCosto + "_" + this.cambiosLDO + "";
+		return retorno;
+	}
+
+	public String solapados() {
+		String retorno = "{";
+		for (Servicio s : this.genes) {
+			retorno += "\nSolicitud: " + s.getSolicitud() + " - ";
+			retorno += "% de Recuperación: " + s.getpRecuperacion() + "% \n";
+			// for (Servicio s2 : s.getServiciosSolapados()) {
+			// retorno += s2.toString() + ", ";
+			// }
+		}
+		retorno += "} \n";
+		return retorno;
+	}
 
 
 	public long getId() {
@@ -976,6 +1265,17 @@ public class Solution implements Serializable, Individuo {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
+	public TreeSet<Servicio> copiarGenes() {
+		TreeSet<Servicio> copia = new TreeSet<Servicio>();
+		for (Servicio s : this.getGenes()) {
+			Servicio s1 = new Servicio(s);
+			copia.add(s1);
+		}
+		return (TreeSet<Servicio>) copia;
+	}
+	
+	
 	
 
 } // Solution
