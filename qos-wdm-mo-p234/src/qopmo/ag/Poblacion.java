@@ -551,6 +551,7 @@ public class Poblacion {
 	       for (Solution aSolutionsList_ : solutionsList) {
 	         //if (this.vector[i].getFitness()<1.0) {
 	         bw.write(aSolutionsList_.toString());
+	         System.out.println(aSolutionsList_.toString());
 	         bw.newLine();
 	         //}
 	       }

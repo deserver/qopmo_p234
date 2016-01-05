@@ -450,10 +450,11 @@ public class Solution implements Serializable, Individuo {
   */
   @Override
 	public String toString() {
+		int diffNivel = this.evaluarNivel();
 		final int maxLen = genes.size();
 		return "[Solucion(" + this.id + "):\n [fitness=" + fitness_ + ", costo="
 				+ costo + "(" + this.contadorCosto + "#" + this.cambiosLDO
-				+ "), genes="
+				+ "@" + diffNivel + "), genes="
 				+ (genes != null ? toString(genes, maxLen) : "Vacio.") + "]";
 	}
 

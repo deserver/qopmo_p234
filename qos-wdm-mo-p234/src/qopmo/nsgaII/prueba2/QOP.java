@@ -43,7 +43,7 @@ public class QOP extends Problem {
 	
 	public QOP (){
 		numberOfVariables_= 1;
-		numberOfObjectives_ = 3;
+		numberOfObjectives_ = 1;
 		numberOfConstraints_ = 0; 
 		problemName_ = "qop_wdm";
 		

@@ -66,9 +66,9 @@ public class NSGAII extends Algorithm {
    * Constructor
    * @param problem Problem to solve
    */
-  public NSGAII(Problem problem, int x) {
+  public NSGAII(Problem problem) {
     super (problem) ;
-	this.num = x;
+	/*this.num = x;
 	if (this.num <= 10) {
 		this.caso = 40;
 	} else if (this.num <= 20) {
@@ -79,21 +79,21 @@ public class NSGAII extends Algorithm {
 		this.caso = 10;
 	} else {
 		this.caso = 1;
-	}
-	this.casoPrincipal += this.caso;
+	}*/
+	//this.casoPrincipal += this.caso;
   } // NSGAII
 	  
   private static EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("tesis");
   private static EntityManager em = emf.createEntityManager();
-  private String casoPrincipal = "CasoCNunez_";
+  private String casoPrincipal = "CasoMrodas_4";
   
   public Poblacion population;
   public Red NSFNET;
-  public EsquemaRestauracion esquema = EsquemaRestauracion.Link;
+  private EsquemaRestauracion esquema = EsquemaRestauracion.Segment;
   private CSVWriter csv = new CSVWriter();
   public Integer caso;
-  private final Integer num;
+  private Integer num;
   
   Problem   problem   ; // The problem to solve
   Algorithm algorithm ; // The algorithm to use
