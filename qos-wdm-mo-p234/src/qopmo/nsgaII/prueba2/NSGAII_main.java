@@ -126,8 +126,8 @@ public class NSGAII_main {
 		
 		    // Algorithm parameters
 		    algorithm.setInputParameter("populationSize",50);
-		    algorithm.setInputParameter("maxEvaluations",10);
-		    algorithm.setInputParameter("probMutacion", 0);//10%
+		    algorithm.setInputParameter("maxEvaluations",100);
+		    algorithm.setInputParameter("probMutacion", 1);//10%
 		    
 		    // Mutation and Crossover for Real codification 
 		    /*parameters = new HashMap() ;
@@ -161,11 +161,15 @@ public class NSGAII_main {
 		    long estimatedTime = System.currentTimeMillis() - initTime;
 			System.out.println("FIN Prueba Algoritmo Genetico. (Segment-Oriented).");
 		    // Result messages 
-		    logger_.info("Total execution time: "+estimatedTime + "ms");
-		    logger_.info("Variables values have been writen to file VAR");
-		    population.printVariablesToFile("VAR_"+caso);    
-		    logger_.info("Objectives values have been writen to file FUN");
-		    population.printObjectivesToFile("FUN_"+caso);
+			if (population != null){
+			    logger_.info("Total execution time: "+estimatedTime + "ms");
+			    logger_.info("Variables values have been writen to file VAR");
+			    population.printVariablesToFile("VAR_"+caso);    
+			    logger_.info("Objectives values have been writen to file FUN");
+			    population.printObjectivesToFile("FUN_"+caso);
+			}else{
+				System.out.println("No arrojo resultados");
+			}
 		  	
 		    /*if (indicators != null) {
 		      logger_.info("Quality indicators") ;

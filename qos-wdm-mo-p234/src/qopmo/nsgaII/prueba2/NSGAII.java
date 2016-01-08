@@ -42,6 +42,7 @@ import jmetal.util.Ranking;
 import jmetal.util.comparators.CrowdingComparator;
 
 import qopmo.ag.operadores.impl.TorneoBinario;
+import qopmo.wdm.Camino;
 import qopmo.wdm.Red;
 import qopmo.wdm.qop.Caso;
 import qopmo.wdm.qop.EsquemaRestauracion;
@@ -50,6 +51,7 @@ import qopmo.ag.operadores.*;
 import qopmo.ag.Individuo;
 import qopmo.ag.Poblacion;
 import qopmo.ag.Solucion;
+import qopmo.wdm.qop.Servicio;
 
 /** 
  *  Implementation of NSGA-II.
@@ -175,6 +177,8 @@ public class NSGAII extends Algorithm {
       offspringPopulation = new Poblacion(populationSize*populationSize);
       Solution parents = new Solution();
       
+      population.evaluar();
+      
       for (int i = 0; i < (populationSize); i++) {
         if (evaluations < maxEvaluations) {
           //obtain parents
@@ -198,15 +202,19 @@ public class NSGAII extends Algorithm {
           //mutationOperator.execute(offSpring[0]);
           //mutationOperator.execute(offSpring[1]);
           
-          for (int j=0; j <populationSize; j++){
+          for (int j=0; j <selectos.size(); j++){
         	  //offSpring[j] = new Solution(1);
 	          
 	          problem_.evaluate(offSpring[j]);
 	          //problem_.evaluateConstraints(offSpring[0]);
 	          //problem_.evaluate(offSpring[1]);
 	          //problem_.evaluateConstraints(offSpring[1]);
-	          
-	          offspringPopulation.add(offSpring[j]);
+	          //&& offSpring[j].getCosto() > 0 
+	          if (offSpring[j].caminoValido() ){
+	        	  if (offSpring[j].getCosto() <= 0.7)
+	        		  System.out.println("0.6");
+	        	  offspringPopulation.add(offSpring[j]);
+	          }
 	          //offspringPopulation.add(offSpring[1]);
 	          /*boolean primero = true;
 	          if (primero) {
@@ -228,7 +236,13 @@ public class NSGAII extends Algorithm {
       // Create the solutionSet union of solutionSet and offSpring
      // union = ((SolutionSet) population).union(offspringPopulation);
       
-      union = offspringPopulation;
+      union = new Poblacion(offspringPopulation.getCapacity());
+      for (int i=0; i<offspringPopulation.size(); i++){
+    	  if (offspringPopulation.get(i).caminoValido())
+    		  union.add(offspringPopulation.get(i));
+      }
+    	  
+      //union = offspringPopulation;
       // Ranking the union
       ranking = new Ranking(union);
 
@@ -240,7 +254,7 @@ public class NSGAII extends Algorithm {
       // Obtain the next front
       front = ranking.getSubfront(index);
 
-      while ((remain > 0) && (remain >= front.size())) {
+      while ( front!= null && (remain > 0)  && (remain >= front.size())) {
         //Assign crowding distance to individuals
         distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
         //Add the individuals of this front
@@ -258,16 +272,20 @@ public class NSGAII extends Algorithm {
         } // if        
       } // while
 
-      // Remain is less than front(index).size, insert only the best one
-      if (remain > 0) {  // front contains individuals to insert                        
-        distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
-        front.sort(new CrowdingComparator());
-        for (int k = 0; k < remain; k++) {
-          population.add(front.get(k));
-        } // for
-
+      if (front != null){
+	      // Remain is less than front(index).size, insert only the best one
+	      if (remain > 0) {  // front contains individuals to insert                        
+	        distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
+	        front.sort(new CrowdingComparator());
+	        for (int k = 0; k < remain; k++) {
+	          population.add(front.get(k));
+	        } // for
+      }else{
+    	  break;
+      }
+	     
         remain = 0;
-      } // if                               
+      } // if    
 
       // This piece of code shows how to use the indicator object into the code
       // of NSGA-II. In particular, it finds the number of evaluations required
@@ -289,7 +307,8 @@ public class NSGAII extends Algorithm {
 
     // Return the first non-dominated front
     ranking = new Ranking(population);
-    ranking.getSubfront(0).printFeasibleFUN("FUN_NSGAII") ;
+    if (ranking.getSubfront(0) != null)
+    	ranking.getSubfront(0).printFeasibleFUN("FUN_NSGAII") ;
 
     
     
@@ -300,6 +319,7 @@ public class NSGAII extends Algorithm {
 
 	
   } // execute
+
   /*
 	 * Funcion para obtener una cantidad de Individuos para la población
 	 * Inicial, cuya Solicitud es la unica seteada hasta el momento.

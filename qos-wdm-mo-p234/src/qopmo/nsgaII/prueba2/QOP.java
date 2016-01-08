@@ -43,7 +43,7 @@ public class QOP extends Problem {
 	
 	public QOP (){
 		numberOfVariables_= 1;
-		numberOfObjectives_ = 1;
+		numberOfObjectives_ = 4;
 		numberOfConstraints_ = 0; 
 		problemName_ = "qop_wdm";
 		
@@ -55,13 +55,19 @@ public class QOP extends Problem {
 	@Override
 	public void evaluate(Solution solution) throws JMException {
 
-		// Costo de una Solucion
-		solution.costo = this.costoTotalCanales(solution);
-		// Fitness de la Solución
-		solution.fitness_ = 1 / solution.costo;
-		solution.setObjective(0, solution.fitness_);
-		solution.evaluarProbabilidadRecuperacion();
-		solution.diferenciaNiveles();	
+		if (this.costoTotalCanales(solution)>0){
+			// Costo de una Solucion
+			solution.costo = this.costoTotalCanales(solution);
+			// Fitness de la Solución
+			solution.fitness_ = 1 / solution.costo;
+			solution.setObjective(0, solution.fitness_);
+			solution.evaluarProbabilidadRecuperacion();
+			solution.diferenciaNiveles();	
+			solution.setObjective(3, solution.getDiferenciaNiveles());
+		}else{
+			solution.setObjective(0, solution.fitness_);
+			solution.setObjective(3, 0);
+		}
 		
 
 		//return this.fitness;
@@ -141,6 +147,25 @@ public class QOP extends Problem {
 			}
 		}
 
+		//Aplicacion del objetivo 1 - solicitudes bloqueadas
+		if (solution.contadorFailOroPrimario!=0)
+			solution.setObjective(1, solution.contadorFailOroPrimario);
+		else if(solution.contadorFailPlataPrimario!=0)
+			solution.setObjective(1, solution.contadorFailPlataPrimario);
+		else if(solution.contadorFailBroncePrimario!=0)
+			solution.setObjective(1, solution.contadorFailBroncePrimario);
+		else
+			solution.setObjective(1, 999);
+		
+		//Aplicacion del objetivo 2 - servicios sin proteccion
+		if (solution.contadorFailOroAlternativo!=0)
+			solution.setObjective(2, solution.contadorFailOroAlternativo);
+		else if(solution.contadorFailPlataAlternativo!=0)
+			solution.setObjective(2, solution.contadorFailPlataAlternativo);
+		else 
+			solution.setObjective(2, 999);
+		
+		
 		// Fórmula de Costo de una Solución
 		double costo = (contadorCosto * a) + (cambiosLDO * b);
 		if (costo != 0)

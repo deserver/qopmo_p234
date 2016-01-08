@@ -45,7 +45,7 @@ public class CruceSegment implements OperadorCruce {
 		Solution s2 = (Solution) i2;
 
 		Collection<Servicio> hijoAux = new ArrayList<Servicio>();
-		Solution hijo = new Solution(1);
+		Solution hijo = new Solution(4);
 
 		List<Nodo> primeros = new ArrayList<Nodo>();
 		List<Nodo> iguales = new ArrayList<Nodo>();

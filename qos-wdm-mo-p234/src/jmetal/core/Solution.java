@@ -149,10 +149,10 @@ public class Solution implements Serializable, Individuo {
   public int contadorFailOroAlternativo = 0;
   @Transient
   public int contadorFailPlataAlternativo = 0;
-	@Transient
-	private int diferenciaNiveles = 0;
-	@Transient
-	private double ganancia = 0.0;
+  @Transient
+  private int diferenciaNiveles = 0;
+  @Transient
+  private double ganancia = 0.0;
   @Transient
   public Set<Enlace> enlacesContado;
 
@@ -204,12 +204,13 @@ public class Solution implements Serializable, Individuo {
    * variables of a SolutionSet to apply quality indicators
    */
   public Solution(int numberOfObjectives) {
-    numberOfObjectives_ = numberOfObjectives;
-    objective_          = new double[numberOfObjectives];
+	  super();
+	  numberOfObjectives_ = numberOfObjectives;
+	  objective_          = new double[numberOfObjectives];
   }
   
   public Solution(Set<Solicitud> solicitudes) {
-
+	  	super();
 		Set<Servicio> servicios = new TreeSet<Servicio>();
 		for (Solicitud s : solicitudes) {
 			Servicio servicio = new Servicio(s);
@@ -230,6 +231,7 @@ public class Solution implements Serializable, Individuo {
    * @throws ClassNotFoundException 
    */
   public Solution(Problem problem) throws ClassNotFoundException{
+	super();
     problem_ = problem ; 
     type_ = problem.getTipoSolucion_();
     numberOfObjectives_ = problem.getNumberOfObjectives() ;
@@ -455,7 +457,10 @@ public class Solution implements Serializable, Individuo {
 		return "[Solucion(" + this.id + "):\n [fitness=" + fitness_ + ", costo="
 				+ costo + "(" + this.contadorCosto + "#" + this.cambiosLDO
 				+ "@" + diffNivel + "), genes="
-				+ (genes != null ? toString(genes, maxLen) : "Vacio.") + "]";
+				+ (genes != null ? toString(genes, maxLen) : "Vacio.") + "]"
+				+ "\nFitness "+ this.getObjective(0) + " Sin servicio: "
+				+ this.getObjective(1) + " Sin proteccion: " + this.getObjective(2)
+				+ " Diferencia Niveles: " + this.getObjective(3);
 	}
 
 	private String toString(Set<Servicio> collection, int maxLen) {
@@ -737,7 +742,7 @@ public class Solution implements Serializable, Individuo {
 	 * @param s
 	 * @return
 	 */
-	public boolean comparar(Solution i) {
+	/*public boolean comparar(Solution i) {
 		Solution s = (Solution) i;
 		boolean retorno = false;
 		int oroP = this.contadorFailOroPrimario;
@@ -751,7 +756,7 @@ public class Solution implements Serializable, Individuo {
 		 * s.contadorFailPlataAlternativo; int bronce =
 		 * this.contadorFailBroncePrimario; bronce -=
 		 * s.contadorFailBroncePrimario;
-		 */
+		 
 		double costoResultante = this.costo - s.costo;
 
 		if (oroP == 0) {
@@ -779,7 +784,7 @@ public class Solution implements Serializable, Individuo {
 
 		return retorno;
 	}
-	
+	*/
 	/**
 	 * Calcula el costo en función de la Fórmula de Evaluación Definida. Tambien
 	 * mantiene contadores de Alternativos no existentes, cuando deberían
@@ -1120,6 +1125,77 @@ public class Solution implements Serializable, Individuo {
 	 * @param s
 	 * @return
 	 */
+	public int comparar(Solution i) {
+		Solution s = (Solution) i;
+		boolean retorno = false;
+		int oroP = this.contadorFailOroPrimario;
+		oroP -= s.contadorFailOroPrimario;
+		int oroA = this.contadorFailOroAlternativo;
+		oroA -= s.contadorFailOroAlternativo;
+		int plataP = this.contadorFailPlataPrimario;
+		plataP -= s.contadorFailPlataPrimario;
+		int plataA = this.contadorFailPlataAlternativo;
+		plataA -= s.contadorFailPlataAlternativo;
+		int bronce = this.contadorFailBroncePrimario;
+		bronce -= s.contadorFailBroncePrimario;
+		int nivel = this.getDiferenciaNiveles() - s.getDiferenciaNiveles();
+		// nivel = 0;
+		double costoResultante = this.costo - s.costo;
+
+		if (oroP == 0) {
+			if (oroA == 0) {
+				if (plataP == 0) {
+					if (plataA == 0) {
+						if (bronce == 0) {
+							if (nivel == 0) {
+								if (costoResultante <= 0)
+									retorno = false;
+								else
+									retorno = true;
+							} else {
+								if (nivel < 0)
+									retorno = false;
+								else
+									retorno = true;
+							}
+						} else {
+							if (bronce < 0)
+								retorno = false;
+							else
+								retorno = true;
+						}
+					} else {
+						if (plataA < 0)
+							retorno = false;
+						else
+							retorno = true;
+					}
+				} else {
+					if (plataP < 0)
+						retorno = false;
+					else
+						retorno = true;
+				}
+			} else {
+				if (oroA < 0)
+					retorno = false;
+				else
+					retorno = true;
+			}
+		} else {
+			if (oroP < 0)
+				retorno = false;
+			else
+				retorno = true;
+		}
+
+		if (retorno)
+			return 1;
+		else
+			return -1;
+		//return retorno;
+	}
+	
 	public boolean comparar(Individuo i) {
 		Solution s = (Solution) i;
 		boolean retorno = false;
@@ -1276,6 +1352,18 @@ public class Solution implements Serializable, Individuo {
 		return (TreeSet<Servicio>) copia;
 	}
 	
+	  
+	  public boolean caminoValido(){
+		  boolean valido = true;
+		  for (Servicio gen : this.genes){
+			  Camino primario = gen.getPrimario();
+			  Camino alternativo = gen.getAlternativo();
+			  if (primario == null || alternativo == null){
+				  valido = false;
+			  }
+		  }
+		  return valido;
+	  }
 	
 	
 

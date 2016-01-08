@@ -30,6 +30,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import qopmo.ag.Poblacion;
+import qopmo.wdm.Camino;
+import qopmo.wdm.qop.Servicio;
 
 /**
  * This class implements some facilities for ranking solutions.
@@ -126,10 +128,11 @@ public class Ranking {
     for (int p = 0; p < (solutionSet_.size()-1); p++) {
       // For all q individuals , calculate if p dominates q or vice versa
       for (int q = p+1; q < solutionSet_.size(); q++) {
-    	  if (solutionSet.get(p).costo!= 0 && solutionSet.get(q).costo != 0){
-		        flagDominate =constraint_.compare(solutionSet.get(p),solutionSet.get(q));
+    	  if (solutionSet_.get(p).costo!= 0 && solutionSet_.get(q).costo != 0){
+		        flagDominate =constraint_.compare(solutionSet_.get(p),solutionSet_.get(q));
 		        if (flagDominate == 0) {
-		    		flagDominate =dominance_.compare(solutionSet.get(p),solutionSet.get(q));
+		    		//flagDominate =dominance_.compare(solutionSet.get(p),solutionSet.get(q));
+		        	flagDominate = solutionSet_.get(p).comparar(solutionSet_.get(q));
 		        }
 		        if (flagDominate == -1)
 		        {
@@ -142,9 +145,9 @@ public class Ranking {
 		          dominateMe[p]++;
 		        }
     	  }else{
-    		  if(solutionSet.get(p).costo == 0){
+    		  if(solutionSet_.get(p).costo == 0){
     			  dominateMe[p] = 999;
-    		  }else if (solutionSet.get(q).costo == 0){
+    		  }else if (solutionSet_.get(q).costo == 0){
     			  dominateMe[q] = 999;
     		  }
     	  }
@@ -153,8 +156,17 @@ public class Ranking {
     }
     for (int p = 0; p < solutionSet_.size(); p++) {
       if (dominateMe[p] == 0) {
-        front[0].add(p);
-        solutionSet.get(p).setRank(0);
+    	  boolean valido = false;
+    	  for (Servicio gen : solutionSet_.get(p).genes){
+    		  Camino primario = gen.getPrimario();
+    		  if (primario != null){
+    			  valido = true;
+    		  }
+    	  }
+    	  if (valido){
+    		  front[0].add(p);
+    		  solutionSet_.get(p).setRank(0);
+    	  }
       }
     }    
     
@@ -178,16 +190,18 @@ public class Ranking {
     }
     //<-
         
+
     ranking_ = new Poblacion[i];
     //0,1,2,....,i-1 are front, then i fronts
     for (int j = 0; j < i; j++) {
       ranking_[j] = new Poblacion(front[j].size());
       it1 = front[j].iterator();
       while (it1.hasNext()) {
-                ranking_[j].add(solutionSet.get(it1.next()));
+                ranking_[j].add(solutionSet_.get(it1.next()));
       }
     }
     
+
   } // Ranking
 
   /**
@@ -196,7 +210,9 @@ public class Ranking {
    * @return Object representing the <code>SolutionSet</code>.
    */
   public Poblacion getSubfront(int rank) {
-    return ranking_[rank];
+	  if (ranking_.length <= rank)
+		  return null;
+	  return ranking_[rank];
   } // getSubFront
 
   /** 

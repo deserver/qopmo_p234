@@ -84,6 +84,11 @@ public class Poblacion {
 	}
 	
 	public Poblacion(int maximo){
+		this.operadorSeleccion = new TorneoBinario();
+		this.operadorCruce = new CrucePath();
+		this.hijos = new ArrayList<Individuo>();
+		this.mejor = new Solution();
+		this.mejor.setFitness(0);
 		this.solutionsList = new ArrayList<Solution>();
 		this.capacity = maximo;
 	}
@@ -230,9 +235,7 @@ public class Poblacion {
 	public Solution[] cruzar(Collection<Individuo> selectos, int probMutacion) {
 
 		Solution[] solucion = new Solution[selectos.size()];
-		Poblacion solutionSet = new Poblacion(selectos.size());
-		//solutionSet.setIndividuos((List<Individuo>)selectos);
-		
+
 		if (selectos == null)
 			throw new Error("No hay selección.");
 
@@ -241,7 +244,6 @@ public class Poblacion {
 
 		// Auxiliar de Individuos
 		List<Individuo> individuos = new ArrayList<Individuo>(selectos);
-		Collection<Individuo> hijosNuevos = new ArrayList<Individuo>();
 
 		// Se inicializa la clase Random
 		Random rand = new Random();
@@ -266,13 +268,23 @@ public class Poblacion {
 			// System.out.println("&) Cruce N°" + i);
 			// System.out.println("++I1:" + individuo1);
 			// System.out.println("++I2:" + individuo2);
+			int limite2 = 1;
+			while (individuo1.getCosto() == 0.0 && individuo2.getCosto() == 0.0
+					&& limite2 < 5) {
+				ind1 = rand.nextInt(cantMejores);
+				individuo1 = individuos.get(ind1);
+				ind2 = rand.nextInt(cantMejores);
+				individuo2 = individuos.get(ind2);
+				limite2++;
+			}
 			// Se extrae los fitness de los correspondientes individuos
 
 			red.inicializar();
-			hijo = (Solution) this.operadorCruce.cruzar(individuo1, individuo2);
-
+			hijo =(Solution) this.operadorCruce.cruzar(individuo1, individuo2);
+			
 			hijo = mutar(hijo, probMutacion);//Mutar con probabilidad probMutacion
 			solucion[i] = (Solution) hijo;
+
 			this.hijos.add(hijo);
 		}
 		
@@ -327,9 +339,9 @@ public class Poblacion {
 	/**
 	 * Función para ir almacenando los mejores de cada generación.
 	 */
-	public List<String> almacenarMejor(int val) {
+	public List<String> almacenarMejor(int val, Solution solution) {
 		String generacion = "" + val;
-		Solution best = ((Solution) this.mejor);
+		Solution best = ((Solution) solution);
 		String costo = "" + best.getCosto();
 		String failOro = "" + best.getContadorFailOro() + "-"
 				+ best.getContadorFailOroAlternativo();
@@ -393,6 +405,8 @@ public class Poblacion {
 	   */
 	  public void clear(){
 	    solutionsList.clear();
+	    individuos.clear();
+	    hijos.clear();
 	  } // clear
 
 	  /** 
@@ -552,6 +566,7 @@ public class Poblacion {
 	         //if (this.vector[i].getFitness()<1.0) {
 	         bw.write(aSolutionsList_.toString());
 	         System.out.println(aSolutionsList_.toString());
+	         System.out.println(this.almacenarMejor(0, aSolutionsList_));
 	         bw.newLine();
 	         //}
 	       }

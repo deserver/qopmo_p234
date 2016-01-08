@@ -3,6 +3,7 @@ package qopmo.ag;
 import java.util.TreeSet;
 
 import qopmo.wdm.qop.Servicio;
+import jmetal.core.Solution;
 
 /**
  * Interface del Individuo que define las operaciones propias del individuo.
@@ -24,6 +25,8 @@ public interface Individuo {
 	 * 
 	 * @return
 	 */
+	public int comparar(Solution i);
+	
 	public boolean comparar(Individuo i);
 
 	/**
