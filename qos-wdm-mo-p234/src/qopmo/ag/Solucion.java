@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import jmetal.core.Solution;
 import qopmo.wdm.Camino;
 import qopmo.wdm.CanalOptico;
 import qopmo.wdm.Enlace;
@@ -710,4 +711,74 @@ public class Solucion implements Individuo {
 		return (TreeSet<Servicio>) copia;
 	}
 
+	public int comparar(Solution i) {
+		Solution s = (Solution) i;
+		boolean retorno = false;
+		int oroP = this.contadorFailOroPrimario;
+		oroP -= s.contadorFailOroPrimario;
+		int oroA = this.contadorFailOroAlternativo;
+		oroA -= s.contadorFailOroAlternativo;
+		int plataP = this.contadorFailPlataPrimario;
+		plataP -= s.contadorFailPlataPrimario;
+		int plataA = this.contadorFailPlataAlternativo;
+		plataA -= s.contadorFailPlataAlternativo;
+		int bronce = this.contadorFailBroncePrimario;
+		bronce -= s.contadorFailBroncePrimario;
+		int nivel = this.getDiferenciaNiveles() - s.getDiferenciaNiveles();
+		// nivel = 0;
+		double costoResultante = this.costo - s.costo;
+
+		if (oroP == 0) {
+			if (oroA == 0) {
+				if (plataP == 0) {
+					if (plataA == 0) {
+						if (bronce == 0) {
+							if (nivel == 0) {
+								if (costoResultante <= 0)
+									retorno = false;
+								else
+									retorno = true;
+							} else {
+								if (nivel < 0)
+									retorno = false;
+								else
+									retorno = true;
+							}
+						} else {
+							if (bronce < 0)
+								retorno = false;
+							else
+								retorno = true;
+						}
+					} else {
+						if (plataA < 0)
+							retorno = false;
+						else
+							retorno = true;
+					}
+				} else {
+					if (plataP < 0)
+						retorno = false;
+					else
+						retorno = true;
+				}
+			} else {
+				if (oroA < 0)
+					retorno = false;
+				else
+					retorno = true;
+			}
+		} else {
+			if (oroP < 0)
+				retorno = false;
+			else
+				retorno = true;
+		}
+
+		if (retorno)
+			return 1;
+		else
+			return -1;
+		//return retorno;
+	}
 }
