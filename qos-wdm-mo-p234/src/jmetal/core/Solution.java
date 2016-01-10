@@ -1374,7 +1374,7 @@ public class Solution implements Serializable, Individuo {
 		retorno += ". Ganancia:" + ganancia;
 		String diff = ". $F$ " + this.totalFallas();
 		retorno += diff;
-		System.out.println(retorno);
+		System.out.print(retorno);
 	}
 	
 	

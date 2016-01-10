@@ -100,9 +100,9 @@ public class NSGAII_main {
 	    QualityIndicator indicators ; // Object to get quality indicators
 	
 	    // Logger object and file to store log messages
-	    logger_      = Configuration.logger_ ;
+	    //logger_      = Configuration.logger_ ;
 	    fileHandler_ = new FileHandler("NSGAII_main.log"); 
-	    logger_.addHandler(fileHandler_) ;
+	    //logger_.addHandler(fileHandler_) ;
 	        
 	    indicators = null ;
 	    if (args.length == 1) {
@@ -127,19 +127,22 @@ public class NSGAII_main {
 	    int corridas;
 	    String caso;
 	    nrocaso = 0;
+	    Poblacion population = new Poblacion(50);
 	    while (nrocaso < 24){
-	    	corridas = 0;
-		    while(corridas < 10){
+	    	corridas = 1;
+	    	long initTime2 = System.currentTimeMillis();
+		    while(corridas < 11){
 			    algorithm = new NSGAII(problem, nrocaso);
 			    caso = casosDePrueba[nrocaso];
 			    
 			    //algorithm = new ssNSGAII(problem);
 			
 			    // Algorithm parameters
-			    algorithm.setInputParameter("populationSize",50);
-			    algorithm.setInputParameter("maxEvaluations",100);
+			    algorithm.setInputParameter("populationSize",5);
+			    algorithm.setInputParameter("maxEvaluations",1000);
 			    algorithm.setInputParameter("probMutacion", 1);//10%
 			    algorithm.setInputParameter("nrocaso", nrocaso);
+			    algorithm.setInputParameter("corridas", corridas);
 			    
 			    // Mutation and Crossover for Real codification 
 			    /*parameters = new HashMap() ;
@@ -166,20 +169,23 @@ public class NSGAII_main {
 			    // Add the indicator object to the algorithm
 			    algorithm.setInputParameter("indicators", indicators) ;
 			    
-			    System.out.println("Corrida: "+corridas);
+			    //System.out.println(" "+corridas);
 			    // Execute the Algorithm
 			    long initTime = System.currentTimeMillis();
-			    System.out.println(caso + "-" + corridas + " Test Genetico.");
+			    //System.out.println(caso + "-" + corridas + " Test Genetico.");
 			    
-			    Poblacion population = algorithm.execute();
+			    population = algorithm.execute();
 			    long estimatedTime = System.currentTimeMillis() - initTime;
-				System.out.println("FIN Prueba Algoritmo Genetico. (Segment-Oriented).");
+			    
+			    
+				
+				
 			    // Result messages 
 				if (population != null){
-				    logger_.info("Total execution time: "+estimatedTime + "ms");
-				    logger_.info("Variables values have been writen to file VAR");
+				    //logger_.info("Total execution time: "+estimatedTime + "ms");
+				    //logger_.info("Variables values have been writen to file VAR");
 				    population.printVariablesToFile("VAR_p3"+caso);    
-				    logger_.info("Objectives values have been writen to file FUN");
+				    //logger_.info("Objectives values have been writen to file FUN");
 				    population.printObjectivesToFile("FUN_p3"+caso);
 				}else{
 					System.out.println("No arrojo resultados");
@@ -198,8 +204,27 @@ public class NSGAII_main {
 			    } // if*/
 			    corridas++;
 		  }
+		long estimatedTime2 = System.currentTimeMillis() - initTime2;
+	    long tiempo = estimatedTime2;
+		long hora = tiempo / 3600000;
+		long restohora = tiempo % 3600000;
+		long minuto = restohora / 60000;
+		long restominuto = restohora % 60000;
+		long segundo = restominuto / 1000;
+		long restosegundo = restominuto % 1000;
+		String time = hora + ":" + minuto + ":" + segundo + "." + restosegundo;
+		time = " Tiempo: " + time;
+		String fin = casosDePrueba[nrocaso] + " FIN - Test Genetico. Tiempo:" + time;
+		//fin += " - Nº Generaciones: " + evaluations;
+		System.out.println(fin);
+		if (population != null)
+			population.printFinalResults();
+			
 		nrocaso++;
+		
   		}
+	    
+	    System.out.println("FIN Prueba Algoritmo Genetico. (Segment-Oriented).");
 	  
   } //main
   

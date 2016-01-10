@@ -561,6 +561,24 @@ public class Poblacion {
 		       e.printStackTrace();
 		     }
 	   }
+	   
+	   public void printFinalResults(){
+		   
+		     try {
+		    	 if (solutionsList!=null){
+					   for (Solution aSolutionsList_ : solutionsList) {
+						     //if (this.vector[i].getFitness()<1.0) {
+						     System.out.print(aSolutionsList_.toString());
+						     //aSolutionsList_.imprimirCosto();
+						     //}
+					   }
+		    	 }
+		     }catch (Exception e) {
+		       Configuration.logger_.severe("Error acceding to the file");
+		       e.printStackTrace();
+		     }
+		   }
+
 
 	   /** 
 	    * Writes the objective function values of the <code>Solution</code> 
@@ -577,9 +595,9 @@ public class Poblacion {
 	       for (Solution aSolutionsList_ : solutionsList) {
 	         //if (this.vector[i].getFitness()<1.0) {
 	         bw.write(aSolutionsList_.toString());
-	         System.out.println(aSolutionsList_.toString());
+	         //System.out.println(aSolutionsList_.toString());
 	         aSolutionsList_.imprimirCosto();
-	         System.out.println(this.almacenarMejor(0, aSolutionsList_));
+	         //System.out.println(this.almacenarMejor(0, aSolutionsList_));
 	         bw.newLine();
 	         //}
 	       }
