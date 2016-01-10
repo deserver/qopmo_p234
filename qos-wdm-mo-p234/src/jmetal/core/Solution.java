@@ -26,6 +26,7 @@ package jmetal.core;
 import jmetal.encodings.variable.Binary;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -1364,6 +1365,17 @@ public class Solution implements Serializable, Individuo {
 		  }
 		  return valido;
 	  }
+	  
+	public void imprimirCosto() {
+		String retorno = "+>Costo:" + this.costo;
+		retorno += ". Diff-Nivel:" + this.getDiferenciaNiveles();
+		DecimalFormat formatear = new DecimalFormat("###,##0.0");
+		String ganancia = formatear.format(this.ganancia);
+		retorno += ". Ganancia:" + ganancia;
+		String diff = ". $F$ " + this.totalFallas();
+		retorno += diff;
+		System.out.println(retorno);
+	}
 	
 	
 
