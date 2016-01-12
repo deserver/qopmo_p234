@@ -627,7 +627,8 @@ public class Poblacion {
 	         for (Solution aSolutionsList_ : solutionsList) {
 	           for (int j = 0; j < numberOfVariables; j++){
 	             //bw.write(aSolutionsList_.getDecisionVariables()[j].toString() + " ");
-	           	 bw.write(aSolutionsList_.toString());
+	           	 //bw.write(aSolutionsList_.toString());
+	           	 bw.write(aSolutionsList_.imprimirCosto2());
 	           	 //System.out.println(aSolutionsList_.toString());
 	           }
 	             

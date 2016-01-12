@@ -1,0 +1,13 @@
+[Solucion(0):
+ [fitness=0.125, costo=8.0(0#0@3), genes= [
+{ID:641(De:1 A:14 Nivel:Plata0) % Recuperacion:100.0 Primario: [{O:1;D:14}«1-4»[LdO=7,F=4]«4-11»[LdO=7,F=6]«11-13»[LdO=7,F=4]«13-14»[LdO=7,F=8]]; Secundario: [{O:1;D:14}«1-3»[LdO=3,F=3]«3-8»[LdO=3,F=1]«8-14»[LdO=3,F=7]]}, 
+{ID:642(De:13 A:4 Nivel:Plata0) % Recuperacion:100.0 Primario: [{O:13;D:4}«9-13»[LdO=0,F=8]«9-10»[LdO=0,F=0]«7-10»[LdO=0,F=4]«2-7»[LdO=0,F=8]«2-4»[LdO=0,F=8]]; Secundario: [{O:13;D:4}«11-13»[LdO=3,F=8]«4-11»[LdO=3,F=8]]}, 
+{ID:643(De:3 A:12 Nivel:Plata0) % Recuperacion:100.0 Primario: [{O:3;D:12}«1-3»[LdO=5,F=6]«1-4»[LdO=5,F=7]«4-11»[LdO=5,F=3]«11-12»[LdO=5,F=3]]; Secundario: [{O:3;D:12}«3-8»[LdO=7,F=2]«8-14»[LdO=7,F=4]«10-14»[LdO=7,F=0]«10-12»[LdO=7,F=1]]}, 
+{ID:644(De:11 A:8 Nivel:Plata0) % Recuperacion:100.0 Primario: [{O:11;D:8}«11-13»[LdO=2,F=4]«13-14»[LdO=2,F=8]«8-14»[LdO=2,F=8]]; Secundario: [{O:11;D:8}«5-11»[LdO=1,F=5]«3-5»[LdO=1,F=0]«3-8»[LdO=1,F=6]]}, 
+{ID:645(De:7 A:13 Nivel:Plata0) % Recuperacion:100.0 Primario: [{O:7;D:13}«7-10»[LdO=5,F=3]«9-10»[LdO=5,F=8]«8-9»[LdO=5,F=7]«8-14»[LdO=5,F=2]«13-14»[LdO=5,F=6]]; Secundario: [{O:7;D:13}«2-7»[LdO=7,F=5]«2-4»[LdO=7,F=2]«4-11»[LdO=7,F=0]«11-13»[LdO=7,F=0]]}, 
+{ID:646(De:3 A:13 Nivel:Plata0) % Recuperacion:83.33333333333334 Primario: [{O:3;D:13}«3-5»[LdO=7,F=3]«5-11»[LdO=7,F=3]«11-13»[LdO=7,F=5]]; Secundario: [{O:3;D:13}«3-8»[LdO=5,F=9]«8-14»[LdO=5,F=6]«13-14»[LdO=5,F=3]]}, 
+{ID:647(De:11 A:7 Nivel:Plata0) % Recuperacion:100.0 Primario: [{O:11;D:7}«4-11»[LdO=1,F=3]«1-4»[LdO=1,F=3]«1-3»[LdO=1,F=7]«3-5»[LdO=1,F=5]«5-6»[LdO=1,F=0]«6-7»[LdO=1,F=4]]; Secundario: [{O:11;D:7}«11-12»[LdO=0,F=3]«10-12»[LdO=0,F=4]«7-10»[LdO=0,F=3]]}, 
+{ID:648(De:1 A:13 Nivel:Plata0) % Recuperacion:100.0 Primario: [{O:1;D:13}«1-4»[LdO=2,F=6]«2-4»[LdO=2,F=3]«2-7»[LdO=2,F=5]«6-7»[LdO=2,F=9]«5-6»[LdO=2,F=6]«5-11»[LdO=2,F=0]«11-13»[LdO=2,F=3]]; Secundario: [{O:1;D:13}«1-3»[LdO=0,F=7]«3-8»[LdO=0,F=2]«8-9»[LdO=0,F=3]«9-13»[LdO=0,F=9]]}, 
+{ID:649(De:2 A:13 Nivel:Plata0) % Recuperacion:90.0 Primario: [{O:2;D:13}«2-7»[LdO=3,F=8]«7-10»[LdO=3,F=9]«10-12»[LdO=3,F=3]«11-12»[LdO=3,F=1]«11-13»[LdO=3,F=6]]; Secundario: [{O:2;D:13}«1-2»[LdO=5,F=2]«1-3»[LdO=5,F=7]«3-8»[LdO=5,F=7]«8-14»[LdO=5,F=6]«13-14»[LdO=5,F=3]]}, 
+{ID:650(De:8 A:12 Nivel:Plata0) % Recuperacion:100.0 Primario: [{O:8;D:12}«8-14»[LdO=3,F=5]«13-14»[LdO=3,F=3]«9-13»[LdO=3,F=3]«9-10»[LdO=3,F=7]«10-12»[LdO=3,F=0]]; Secundario: [{O:8;D:12}«3-8»[LdO=4,F=3]«3-5»[LdO=4,F=7]«5-11»[LdO=4,F=3]«11-12»[LdO=4,F=2]]}]]
+Fitness 0.125 Sin servicio: 999.0 Sin proteccion: 999.0 Diferencia Niveles: 3.0

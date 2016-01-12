@@ -1377,6 +1377,17 @@ public class Solution implements Serializable, Individuo {
 		System.out.print(retorno);
 	}
 	
+	public String imprimirCosto2() {
+		String retorno = "+>Costo:" + this.costo;
+		retorno += ". Diff-Nivel:" + this.getDiferenciaNiveles();
+		DecimalFormat formatear = new DecimalFormat("###,##0.0");
+		String ganancia = formatear.format(this.ganancia);
+		retorno += ". Ganancia:" + ganancia;
+		String diff = ". $F$ " + this.totalFallas();
+		retorno += diff;
+		
+		return retorno;
+	}
 	
 
 } // Solution
