@@ -13,9 +13,7 @@ import qopmo.wdm.qop.Exclusividad;
 import qopmo.wdm.qop.Nivel;
 import qopmo.wdm.qop.Servicio;
 import qopmo.ag.Individuo;
-import qopmo.ag.Solucion;
 import qopmo.ag.operadores.OperadorCruce;
-
 import jmetal.core.Solution;
 
 /**

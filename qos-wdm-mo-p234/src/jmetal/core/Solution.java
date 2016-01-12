@@ -74,7 +74,7 @@ public class Solution implements Serializable, Individuo {
   /**
    * Stores the objectives values of the solution.
    */
-  private final double [] objective_ ;
+  private double [] objective_ ;
 
   /**
    * Stores the number of objective values of the solution
@@ -210,6 +210,13 @@ public class Solution implements Serializable, Individuo {
 	  objective_          = new double[numberOfObjectives];
   }
   
+  public void setNumberOfObjectives(int x){
+	  this.numberOfObjectives_ = x;
+	  objective_          = new double[this.numberOfObjectives_];
+  }
+  public int getNumberOfObjectves(){
+	  return this.numberOfObjectives_;
+  }
   public Solution(Set<Solicitud> solicitudes) {
 	  	super();
 		Set<Servicio> servicios = new TreeSet<Servicio>();
@@ -458,10 +465,10 @@ public class Solution implements Serializable, Individuo {
 		return "[Solucion(" + this.id + "):\n [fitness=" + fitness_ + ", costo="
 				+ costo + "(" + this.contadorCosto + "#" + this.cambiosLDO
 				+ "@" + diffNivel + "), genes="
-				+ (genes != null ? toString(genes, maxLen) : "Vacio.") + "]"
-				+ "\nFitness "+ this.getObjective(0) + " Sin servicio: "
+				+ (genes != null ? toString(genes, maxLen) : "Vacio.") + "]";
+				/*+ "\nFitness "+ this.getObjective(0) + " Sin servicio: "
 				+ this.getObjective(1) + " Sin proteccion: " + this.getObjective(2)
-				+ " Diferencia Niveles: " + this.getObjective(3);
+				+ " Diferencia Niveles: " + this.getObjective(3);*/
 	}
 
 	private String toString(Set<Servicio> collection, int maxLen) {

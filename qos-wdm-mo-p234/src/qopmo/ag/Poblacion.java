@@ -239,7 +239,6 @@ public class Poblacion {
 		if (selectos == null)
 			throw new Error("No hay selección.");
 
-		// Tamaño de población seleccionada
 		int cantMejores = selectos.size();
 
 		// Auxiliar de Individuos
@@ -280,7 +279,7 @@ public class Poblacion {
 			// Se extrae los fitness de los correspondientes individuos
 
 			red.inicializar();
-			hijo =(Solution) this.operadorCruce.cruzar(individuo1, individuo2);
+			hijo =this.operadorCruce.cruzar(individuo1, individuo2);
 			
 			hijo = mutar(hijo, probMutacion);//Mutar con probabilidad probMutacion
 			solucion[i] = (Solution) hijo;
@@ -313,7 +312,7 @@ public class Poblacion {
 		boolean primero = true;
 		for (Individuo i : this.individuos) {
 			i.evaluar();
-			if (primero) {
+			/*if (primero) {
 				if (i.getCosto()>0.0){
 					this.mejor = (Solution) i;
 					primero = false;
@@ -321,7 +320,7 @@ public class Poblacion {
 			} else {
 				if (this.mejor.comparar(i))
 					this.mejor = (Solution) i;
-			}
+			}*/
 		}
 	}
 
@@ -568,7 +567,7 @@ public class Poblacion {
 		    	 if (solutionsList!=null){
 					   for (Solution aSolutionsList_ : solutionsList) {
 						     //if (this.vector[i].getFitness()<1.0) {
-						     System.out.print(aSolutionsList_.toString());
+						     System.out.println(aSolutionsList_.toString());
 						     //aSolutionsList_.imprimirCosto();
 						     //}
 					   }
@@ -597,6 +596,7 @@ public class Poblacion {
 	         bw.write(aSolutionsList_.toString());
 	         //System.out.println(aSolutionsList_.toString());
 	         aSolutionsList_.imprimirCosto();
+	         System.out.println("");
 	         //System.out.println(this.almacenarMejor(0, aSolutionsList_));
 	         bw.newLine();
 	         //}
@@ -627,8 +627,8 @@ public class Poblacion {
 	         for (Solution aSolutionsList_ : solutionsList) {
 	           for (int j = 0; j < numberOfVariables; j++){
 	             //bw.write(aSolutionsList_.getDecisionVariables()[j].toString() + " ");
-	           	 //bw.write(aSolutionsList_.toString());
 	           	 bw.write(aSolutionsList_.imprimirCosto2());
+	           	 bw.write(aSolutionsList_.toString());
 	           	 //System.out.println(aSolutionsList_.toString());
 	           }
 	             

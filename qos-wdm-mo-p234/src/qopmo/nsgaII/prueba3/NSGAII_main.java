@@ -140,7 +140,7 @@ public class NSGAII_main {
 			    //algorithm = new ssNSGAII(problem);
 			
 			    // Algorithm parameters
-			    algorithm.setInputParameter("populationSize",5);
+			    algorithm.setInputParameter("populationSize",50);
 			    algorithm.setInputParameter("maxEvaluations",2500);
 			    algorithm.setInputParameter("probMutacion", 1);//10%
 			    algorithm.setInputParameter("nrocaso", nrocaso);

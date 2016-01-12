@@ -193,10 +193,21 @@ public class NSGAII extends Algorithm {
     while (evaluations < tiempoTotal[nrocaso]) {
 
 	      // Create the offSpring solutionSet      
-	      offspringPopulation = new Poblacion(tiempoTotal[nrocaso]*tiempoTotal[nrocaso]);
+	      //offspringPopulation = new Poblacion(tiempoTotal[nrocaso]*tiempoTotal[nrocaso]);
 	      Solution parents = new Solution();
 	      
-	      population.evaluar();
+	      //population.evaluar();
+	      offspringPopulation = population;
+	      offspringPopulation.setCapacity(tiempoTotal[nrocaso]*tiempoTotal[nrocaso]);
+	      for (Individuo i : offspringPopulation.getIndividuos()){
+	    	  Solution s = new Solution(i);
+	    	  s.setNumberOfObjectives(problem_.getNumberOfObjectives());
+	    	  problem_.evaluate(s);
+	    	  if (s.getCosto() > 0)
+	        	  offspringPopulation.add(s);
+	      }
+	      //offspringPopulation.evaluar();
+	      
 	      
 	      for (int i = 0; i < (populationSize); i++) {
 	        //if (evaluations < maxEvaluations) {
@@ -209,10 +220,10 @@ public class NSGAII extends Algorithm {
 	        	
 	        	//Binary Tournament Application
 	          //parents = (Solution) seleccionOp.seleccionar(population);
-	          Collection<Individuo> selectos = seleccionOp.seleccionar(population);
+	          Collection<Individuo> selectos = seleccionOp.seleccionar(offspringPopulation);
 	          
 	          //Crossover
-	          Solution[]  offSpring = population.cruzar(selectos, probMutacion);
+	          Solution[]  offSpring = offspringPopulation.cruzar(selectos, probMutacion);
 	        		  
 	        		 
 	          
@@ -233,7 +244,8 @@ public class NSGAII extends Algorithm {
 		          /*if (offSpring[j].caminoValido() ){
 		        	  offspringPopulation.add(offSpring[j]);
 		          }*/
-		          offspringPopulation.add(offSpring[j]);
+		          if (offSpring[j].getCosto() > 0)
+		        	  offspringPopulation.add(offSpring[j]);
 		          //offspringPopulation.add(offSpring[1]);
 		          /*boolean primero = true;
 		          if (primero) {
@@ -248,7 +260,8 @@ public class NSGAII extends Algorithm {
 	          
 	          //csv.addValor(population.almacenarMejor(evaluations));
 	          evaluations++;
-	          population.siguienteGeneracion();
+	          //population.siguienteGeneracion();
+	          offspringPopulation.siguienteGeneracion();
 	          //System.out.println(evaluations);
 	        //} // if                            
 	      } // for
@@ -343,7 +356,7 @@ public class NSGAII extends Algorithm {
 	fin += " - Nº Generaciones: " + evaluations;
 	System.out.println(fin);
 	*/
-	System.out.println("Evaluaciones: "+ evaluations);
+	System.out.println("\nEvaluaciones: "+ evaluations);
 	
     // Return as output parameter the required evaluations
     setOutputParameter("evaluations", requiredEvaluations);
