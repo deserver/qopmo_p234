@@ -80,7 +80,7 @@ public class NSGAII extends Algorithm {
   private static EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("tesis");
   private static EntityManager em = emf.createEntityManager();
-  private String casoPrincipal = "CasoCNunez_";
+  private String casoPrincipal = "caso_";
   
   public Poblacion population;
   public Red NSFNET;
@@ -88,19 +88,23 @@ public class NSGAII extends Algorithm {
   private CSVWriter csv = new CSVWriter();
   public String caso;
   private Integer num;
-  
-  private static int[] tiempoTotal = {
-			3000, 3000, 3000, 3000,	3000, 3000,
-			10000, 10000, 10000, 10000,	10000, 10000,
-			20000, 20000, 20000, 20000,	20000, 20000,
-			100000, 100000, 100000, 100000, 100000, 100000,
-			};
+	private static int[] tiempoTotal = {
+			7000, 7000, 7000, 7000, 7000, //35 
+			8000, 8000, 8000, 8000,	8000, //40
+			9000, 9000, 9000, 9000, 9000,  //45
+			40000, 40000, 40000, 40000, 40000, //200
+			80000, 80000, 80000, 80000, 80000, //400
+			100000, 100000, 100000, 100000, 100000 //500
+			}; //1220
 		private static String[] casosDePrueba = {
-			"10", "11", "12", "13", "14", "15", 
-			"20", "21", "22", "23", "24", "25", 
-			"30", "31", "32", "33", "34", "35", 
-			"40", "41", "42", "43", "44", "45"
-			};
+				"1_1_10", "1_1_20", "1_1_30", "1_1_40", "1_1_50", 
+				"1_2_10", "1_2_20", "1_2_30", "1_2_40",	"1_2_50", 
+				"1_3_10", "1_3_20", "1_3_30", "1_3_40", "1_3_50",
+				"2_1_10", "2_1_20", "2_1_30", "2_1_40", "2_1_50",
+				"2_2_10", "2_2_20", "2_2_30", "2_2_40", "2_2_50",
+				"2_3_10", "2_3_20", "2_3_30", "2_3_40", "2_3_50"
+				};
+
 
   Problem   problem   ; // The problem to solve
   Algorithm algorithm ; // The algorithm to use
@@ -188,11 +192,19 @@ public class NSGAII extends Algorithm {
     
     while (evaluations < tiempoTotal[nrocaso]) {
 
-	      // Create the offSpring solutionSet      
-	      offspringPopulation = new Poblacion(tiempoTotal[nrocaso]*tiempoTotal[nrocaso]);
-	      Solution parents = new Solution();
 	      
-	      population.evaluar();
+	      //population.evaluar();
+	      offspringPopulation = population;
+	      offspringPopulation.setCapacity(tiempoTotal[nrocaso]*tiempoTotal[nrocaso]);
+	      /*for (Individuo i : offspringPopulation.getIndividuos()){
+	    	  Solution s = new Solution(i);
+	    	  s.setNumberOfObjectives(problem_.getNumberOfObjectives());
+	    	  problem_.evaluate(s);
+	    	  if (s.getCosto() > 0)
+	        	  offspringPopulation.add(s);
+	      }*/
+	      //offspringPopulation.evaluar();
+	      
 	      
 	      for (int i = 0; i < (populationSize); i++) {
 	        //if (evaluations < maxEvaluations) {
@@ -200,27 +212,34 @@ public class NSGAII extends Algorithm {
 	          //parents[0] = (Solution) selectionOperator.execute(population);
 	          //parents[1] = (Solution) selectionOperator.execute(population);
 	          //population.evaluar();	
-	        	
+		      for (Individuo ind : offspringPopulation.getIndividuos()){
+		    	  Solution s = new Solution(ind);
+		    	  s.setNumberOfObjectives(problem_.getNumberOfObjectives());
+		    	  problem_.evaluate(s);
+		    	  if (s.getCosto() > 0)
+		        	  offspringPopulation.add(s);
+		      }
 	        	
 	        	
 	        	//Binary Tournament Application
 	          //parents = (Solution) seleccionOp.seleccionar(population);
-	          Collection<Individuo> selectos = seleccionOp.seleccionar(population);
+	          Collection<Individuo> selectos = seleccionOp.seleccionar(offspringPopulation);
 	          
 	          //Crossover
-	          Solution[]  offSpring = population.cruzar(selectos, probMutacion);
+	          //Solution[]  offSpring = offspringPopulation.cruzar(selectos, probMutacion);
+	          offspringPopulation.cruzar(selectos, probMutacion);
 	        		  
-	        		 
+	          offspringPopulation.siguienteGeneracion();
 	          
-	          
+
 	          //Solution[] offSpring = (Solution[]) crossoverOperator.execute(parents);
 	          //mutationOperator.execute(offSpring[0]);
 	          //mutationOperator.execute(offSpring[1]);
 	          
-	          for (int j=0; j <selectos.size(); j++){
+	          //for (int j=0; j <selectos.size(); j++){
 	        	  //offSpring[j] = new Solution(1);
 		          
-		          problem_.evaluate(offSpring[j]);
+		          //problem_.evaluate(offSpring[j]);
 		          //problem_.evaluateConstraints(offSpring[0]);
 		          //problem_.evaluate(offSpring[1]);
 		          //problem_.evaluateConstraints(offSpring[1]);
@@ -229,7 +248,8 @@ public class NSGAII extends Algorithm {
 		          /*if (offSpring[j].caminoValido() ){
 		        	  offspringPopulation.add(offSpring[j]);
 		          }*/
-		          offspringPopulation.add(offSpring[j]);
+		          //if (offSpring[j].getCosto() > 0)
+		        	  //offspringPopulation.add(offSpring[j]);
 		          //offspringPopulation.add(offSpring[1]);
 		          /*boolean primero = true;
 		          if (primero) {
@@ -239,12 +259,13 @@ public class NSGAII extends Algorithm {
 						if (population.mejor.comparar(offspringPopulation.getMejor()))
 							population.mejor = (Solucion) offspringPopulation.getMejor();
 					}*/
-	          }
+	          //}
 	
 	          
 	          //csv.addValor(population.almacenarMejor(evaluations));
 	          evaluations++;
-	          population.siguienteGeneracion();
+	          //population.siguienteGeneracion();
+	          
 	          //System.out.println(evaluations);
 	        //} // if                            
 	      } // for

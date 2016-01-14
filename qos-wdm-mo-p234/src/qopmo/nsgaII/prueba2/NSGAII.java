@@ -173,11 +173,10 @@ public class NSGAII extends Algorithm {
     
     while (evaluations < maxEvaluations) {
 
-      // Create the offSpring solutionSet      
+      offspringPopulation = population;
       offspringPopulation = new Poblacion(populationSize*populationSize);
-      Solution parents = new Solution();
       
-      population.evaluar();
+      //population.evaluar();
       
       for (int i = 0; i < (populationSize); i++) {
         if (evaluations < maxEvaluations) {
@@ -186,15 +185,22 @@ public class NSGAII extends Algorithm {
           //parents[1] = (Solution) selectionOperator.execute(population);
           //population.evaluar();	
         	
-        	
+	      for (Individuo ind : offspringPopulation.getIndividuos()){
+	    	  Solution s = new Solution(ind);
+	    	  s.setNumberOfObjectives(problem_.getNumberOfObjectives());
+	    	  problem_.evaluate(s);
+	    	  if (s.getCosto() > 0)
+	        	  offspringPopulation.add(s);
+	      }
         	
         	//Binary Tournament Application
           //parents = (Solution) seleccionOp.seleccionar(population);
-          Collection<Individuo> selectos = seleccionOp.seleccionar(population);
+          Collection<Individuo> selectos = seleccionOp.seleccionar(offspringPopulation);
           
           //Crossover
-          Solution[]  offSpring = population.cruzar(selectos, probMutacion);
+          offspringPopulation.cruzar(selectos, probMutacion);
         		  
+          offspringPopulation.siguienteGeneracion();
         		 
           
           
@@ -202,33 +208,9 @@ public class NSGAII extends Algorithm {
           //mutationOperator.execute(offSpring[0]);
           //mutationOperator.execute(offSpring[1]);
           
-          for (int j=0; j <selectos.size(); j++){
-        	  //offSpring[j] = new Solution(1);
-	          
-	          problem_.evaluate(offSpring[j]);
-	          //problem_.evaluateConstraints(offSpring[0]);
-	          //problem_.evaluate(offSpring[1]);
-	          //problem_.evaluateConstraints(offSpring[1]);
-	          //&& offSpring[j].getCosto() > 0 
-	          if (offSpring[j].caminoValido() ){
-	        	  if (offSpring[j].getCosto() <= 0.7)
-	        		  System.out.println("0.6");
-	        	  offspringPopulation.add(offSpring[j]);
-	          }
-	          //offspringPopulation.add(offSpring[1]);
-	          /*boolean primero = true;
-	          if (primero) {
-					population.mejor = (Solucion) offspringPopulation.getMejor();
-					primero = false;
-				} else {
-					if (population.mejor.comparar(offspringPopulation.getMejor()))
-						population.mejor = (Solucion) offspringPopulation.getMejor();
-				}*/
-          }
           
           //csv.addValor(population.almacenarMejor(evaluations));
           evaluations++;
-          population.siguienteGeneracion();
           System.out.println(evaluations);
         } // if                            
       } // for

@@ -179,7 +179,7 @@ public class Poblacion {
 		// Condición de Elitismo: Se mantiene el mejor.
 		// Solucion s3 = null;
 		// Solucion s = new Solucion(this.mejor);
-		this.hijos.add(this.mejor);
+		//this.hijos.add(this.mejor);
 		this.individuos = this.hijos;
 		this.hijos = new ArrayList<Individuo>();
 		Poblacion.red.inicializar();
@@ -232,7 +232,7 @@ public class Poblacion {
 	 * 
 	 * @param selectos
 	 */
-	public Solution[] cruzar(Collection<Individuo> selectos, int probMutacion) {
+	public void cruzar(Collection<Individuo> selectos, int probMutacion) {
 
 		Solution[] solucion = new Solution[selectos.size()];
 
@@ -287,7 +287,7 @@ public class Poblacion {
 			this.hijos.add(hijo);
 		}
 		
-		return solucion;
+		//return solucion;
 
 	}
 
@@ -617,7 +617,7 @@ public class Poblacion {
 	    */
 	   public void printVariablesToFile(String path){
 	     try {
-	       FileOutputStream fos   = new FileOutputStream(path)     ;
+	       FileOutputStream fos   = new FileOutputStream(path,true)     ;
 	       OutputStreamWriter osw = new OutputStreamWriter(fos)    ;
 	       BufferedWriter bw      = new BufferedWriter(osw)        ;            
 
