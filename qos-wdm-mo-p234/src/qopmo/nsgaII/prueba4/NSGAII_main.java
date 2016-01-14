@@ -46,7 +46,7 @@ import javax.persistence.Persistence;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import qopmo.nsgaII.prueba2.QOP;
+import qopmo.nsgaII.prueba4.QOP;
 import qopmo.ag.operadores.impl.*;
 import qopmo.ag.Poblacion;
 
@@ -141,7 +141,7 @@ public class NSGAII_main {
 			
 			    // Algorithm parameters
 			    algorithm.setInputParameter("populationSize",5);
-			    algorithm.setInputParameter("maxEvaluations",1000);
+			    algorithm.setInputParameter("maxEvaluations",2500);
 			    algorithm.setInputParameter("probMutacion", 1);//10%
 			    algorithm.setInputParameter("nrocaso", nrocaso);
 			    algorithm.setInputParameter("corridas", corridas);

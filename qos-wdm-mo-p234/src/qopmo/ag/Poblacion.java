@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 import jmetal.core.Solution;
+import jmetal.core.SolutionSet;
 import jmetal.util.Configuration;
 import qopmo.wdm.Red;
 import qopmo.wdm.qop.EsquemaRestauracion;
@@ -92,7 +93,37 @@ public class Poblacion {
 		this.solutionsList = new ArrayList<Solution>();
 		this.capacity = maximo;
 	}
+	
+	public void copiarPoblacion(Poblacion population){
+		this.hijos = population.getHijos();
+		this.individuos = population.getIndividuos();
+		//this.solutionsList = population.getSolutionList();
+		for (Solution s : population.getSolutionList()){
+			this.solutionsList.add(s);
+		}
+	}
+	
+	public Poblacion union(Poblacion population){
+		int newSize = this.size() + population.size();
+		if (newSize < this.capacity)
+			newSize = this.capacity;
+		
+	    Poblacion union = new Poblacion(newSize);                
+	    for (int i = 0; i < this.size(); i++) {      
+	      union.add(this.get(i));
+	    } // for
 
+	    for (int i = this.size(); i < (this.size() + population.size()); i++) {
+	      union.add(population.get(i-this.size()));
+	    } // for
+	    
+		return union;
+	}
+
+	public List<Solution> getSolutionList(){
+		return this.solutionsList;
+	}
+	
 	public static Red getRed() {
 		return red;
 	}
@@ -184,6 +215,21 @@ public class Poblacion {
 		this.hijos = new ArrayList<Individuo>();
 		Poblacion.red.inicializar();
 	}
+	
+	public void siguienteGeneracion(Poblacion mejores) {
+		// Condición de Elitismo: Se mantiene el mejor.
+		// Solucion s3 = null;
+		// Solucion s = new Solucion(this.mejor);
+		//this.hijos.add(this.mejor);
+		if (mejores != null){
+			for (Solution s : mejores.getSolutionList()){
+				this.hijos.add((Individuo) s);
+			}
+		}
+		this.individuos = this.hijos;
+		this.hijos = new ArrayList<Individuo>();
+		Poblacion.red.inicializar();
+	}
 
 	/**
 	 * Se genera randómicamente la Población.
@@ -234,7 +280,7 @@ public class Poblacion {
 	 */
 	public void cruzar(Collection<Individuo> selectos, int probMutacion) {
 
-		Solution[] solucion = new Solution[selectos.size()];
+		//Solution[] solucion = new Solution[selectos.size()];
 
 		if (selectos == null)
 			throw new Error("No hay selección.");
@@ -248,7 +294,7 @@ public class Poblacion {
 		Random rand = new Random();
 		rand.nextInt();
 
-		for (int i = 0; i < cantMejores; i++) {
+		for (int i = 1; i < cantMejores; i++) {
 
 			// Se eligen a dos individuos (torneo "binario")
 			int ind1 = rand.nextInt(cantMejores);
@@ -281,8 +327,7 @@ public class Poblacion {
 			red.inicializar();
 			hijo =this.operadorCruce.cruzar(individuo1, individuo2);
 			
-			hijo = mutar(hijo, probMutacion);//Mutar con probabilidad probMutacion
-			solucion[i] = (Solution) hijo;
+			//hijo = mutar(hijo, probMutacion);//Mutar con probabilidad probMutacion
 
 			this.hijos.add(hijo);
 		}
@@ -404,8 +449,8 @@ public class Poblacion {
 	   */
 	  public void clear(){
 	    solutionsList.clear();
-	    individuos.clear();
-	    hijos.clear();
+	    //individuos.clear();
+	    //hijos.clear();
 	  } // clear
 
 	  /** 

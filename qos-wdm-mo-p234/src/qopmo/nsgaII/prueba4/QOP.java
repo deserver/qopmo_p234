@@ -66,6 +66,8 @@ public class QOP extends Problem {
 			//solution.setObjective(3, solution.getDiferenciaNiveles());
 			solution.setObjective(3, 0);
 		}else{
+			solution.costo = Double.MAX_VALUE;
+			solution.fitness_ = 0;
 			solution.setObjective(0, solution.fitness_);
 			solution.setObjective(3, 0);
 		}

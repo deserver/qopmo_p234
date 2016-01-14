@@ -46,7 +46,7 @@ import javax.persistence.Persistence;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import qopmo.nsgaII.prueba2.QOP;
+import qopmo.nsgaII.prueba3.QOP;
 import qopmo.ag.operadores.impl.*;
 import qopmo.ag.Poblacion;
 

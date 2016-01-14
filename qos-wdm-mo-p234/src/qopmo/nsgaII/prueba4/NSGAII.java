@@ -132,6 +132,7 @@ public class NSGAII extends Algorithm {
     //SolutionSet population;
     Poblacion offspringPopulation;
     Poblacion union;
+    Poblacion copyPopulation;
 
     Operator mutationOperator;
     Operator crossoverOperator;
@@ -192,89 +193,54 @@ public class NSGAII extends Algorithm {
     
     while (evaluations < tiempoTotal[nrocaso]) {
 
+	      if (evaluations == 35)
+	    	  System.out.println("hola");
+	      offspringPopulation = new Poblacion(populationSize*populationSize+populationSize);
+	      copyPopulation = new Poblacion(populationSize*populationSize+populationSize);
+	      //offspringPopulation.copiarPoblacion(population);;
 	      
-	      //population.evaluar();
-	      offspringPopulation = population;
-	      offspringPopulation.setCapacity(tiempoTotal[nrocaso]*tiempoTotal[nrocaso]);
-	      /*for (Individuo i : offspringPopulation.getIndividuos()){
-	    	  Solution s = new Solution(i);
+	      
+	      for (int i = 0; i < (populationSize); i++) {
+	    	  if (evaluations<tiempoTotal[nrocaso]){
+	    	  
+
+			      for (Individuo ind : population.getIndividuos()){
+			    	  Solution s = (Solution) ind;
+			    	  s.setNumberOfObjectives(problem_.getNumberOfObjectives());
+			    	  problem_.evaluate(s);
+			    	  //if (s.getCosto()<2.8)
+			    		  //System.out.println(s.getCosto());
+			    	  if (s.getCosto() > 0)
+			        	  offspringPopulation.add(s);
+
+			      }
+		        	
+
+		          Collection<Individuo> selectos = seleccionOp.seleccionar(population);
+		          
+		          population.cruzar(selectos, probMutacion);
+		          copyPopulation.copiarPoblacion(offspringPopulation);
+		          Poblacion mejores = getFront(copyPopulation);
+		          population.siguienteGeneracion(mejores);
+		          
+		          evaluations++;
+		          
+	    	  }//if
+                           
+	      } // for
+	
+	      for (Individuo ind : population.getIndividuos()){
+	    	  Solution s = (Solution) ind;
 	    	  s.setNumberOfObjectives(problem_.getNumberOfObjectives());
 	    	  problem_.evaluate(s);
 	    	  if (s.getCosto() > 0)
 	        	  offspringPopulation.add(s);
-	      }*/
-	      //offspringPopulation.evaluar();
-	      
-	      
-	      for (int i = 0; i < (populationSize); i++) {
-	        //if (evaluations < maxEvaluations) {
-	          //obtain parents
-	          //parents[0] = (Solution) selectionOperator.execute(population);
-	          //parents[1] = (Solution) selectionOperator.execute(population);
-	          //population.evaluar();	
-		      for (Individuo ind : offspringPopulation.getIndividuos()){
-		    	  Solution s = new Solution(ind);
-		    	  s.setNumberOfObjectives(problem_.getNumberOfObjectives());
-		    	  problem_.evaluate(s);
-		    	  if (s.getCosto() > 0)
-		        	  offspringPopulation.add(s);
-		      }
-	        	
-	        	
-	        	//Binary Tournament Application
-	          //parents = (Solution) seleccionOp.seleccionar(population);
-	          Collection<Individuo> selectos = seleccionOp.seleccionar(offspringPopulation);
-	          
-	          //Crossover
-	          //Solution[]  offSpring = offspringPopulation.cruzar(selectos, probMutacion);
-	          offspringPopulation.cruzar(selectos, probMutacion);
-	        		  
-	          offspringPopulation.siguienteGeneracion();
-	          
-
-	          //Solution[] offSpring = (Solution[]) crossoverOperator.execute(parents);
-	          //mutationOperator.execute(offSpring[0]);
-	          //mutationOperator.execute(offSpring[1]);
-	          
-	          //for (int j=0; j <selectos.size(); j++){
-	        	  //offSpring[j] = new Solution(1);
-		          
-		          //problem_.evaluate(offSpring[j]);
-		          //problem_.evaluateConstraints(offSpring[0]);
-		          //problem_.evaluate(offSpring[1]);
-		          //problem_.evaluateConstraints(offSpring[1]);
-		          //&& offSpring[j].getCosto() > 0 
-		          
-		          /*if (offSpring[j].caminoValido() ){
-		        	  offspringPopulation.add(offSpring[j]);
-		          }*/
-		          //if (offSpring[j].getCosto() > 0)
-		        	  //offspringPopulation.add(offSpring[j]);
-		          //offspringPopulation.add(offSpring[1]);
-		          /*boolean primero = true;
-		          if (primero) {
-						population.mejor = (Solucion) offspringPopulation.getMejor();
-						primero = false;
-					} else {
-						if (population.mejor.comparar(offspringPopulation.getMejor()))
-							population.mejor = (Solucion) offspringPopulation.getMejor();
-					}*/
-	          //}
-	
-	          
-	          //csv.addValor(population.almacenarMejor(evaluations));
-	          evaluations++;
-	          //population.siguienteGeneracion();
-	          
-	          //System.out.println(evaluations);
-	        //} // if                            
-	      } // for
-	
+	      }
 	      // Create the solutionSet union of solutionSet and offSpring
 	     // union = ((SolutionSet) population).union(offspringPopulation);
 	      
  
-	      union = offspringPopulation;
+	      union = offspringPopulation.union(population);
 	      // Ranking the union
 	      ranking = new Ranking(union);
 	
@@ -428,5 +394,50 @@ public class NSGAII extends Algorithm {
       population.add(newSolution);
     } //for       */
 
+	
+	public Poblacion getFront(Poblacion population){
+		Ranking ranking = new Ranking(population);
+		Distance distance = new Distance();
+		
+		int remain = population.size();
+		int index = 0;
+		Poblacion front = null;
+		Poblacion poblacion = new Poblacion(population.size());
+		
+		front = ranking.getSubfront(index);
+		
+	      while ( front!= null && (remain > 0)  && (remain >= front.size())) {
+	        //Assign crowding distance to individuals
+	        distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
+	        //Add the individuals of this front
+	        for (int k = 0; k < front.size(); k++) {
+	          poblacion.add(front.get(k));
+	        } // for
+	
+	        //Decrement remain
+	        remain = remain - front.size();
+	
+	        //Obtain the next front
+	        index++;
+	        if (remain > 0) {
+	          front = ranking.getSubfront(index);
+	        } // if        
+	      } // while
+	
+	      if (front != null){
+		      // Remain is less than front(index).size, insert only the best one
+		      if (remain > 0) {  // front contains individuals to insert                        
+		        distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
+		        front.sort(new CrowdingComparator());
+		        for (int k = 0; k < remain; k++) {
+		          poblacion.add(front.get(k));
+		        } // for
+		      }
+	        remain = 0;
+	      } // if    
+	
+		
+		return ranking.getSubfront(0);
+	}
 } // NSGA-II
 
