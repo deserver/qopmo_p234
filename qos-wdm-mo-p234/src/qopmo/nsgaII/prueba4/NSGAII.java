@@ -200,7 +200,7 @@ public class NSGAII extends Algorithm {
 	      //offspringPopulation.copiarPoblacion(population);;
 	      
 	      
-	      for (int i = 0; i < (populationSize); i++) {
+	      //for (int i = 0; i < (populationSize); i++) {
 	    	  if (evaluations<tiempoTotal[nrocaso]){
 	    	  
 
@@ -227,7 +227,7 @@ public class NSGAII extends Algorithm {
 		          
 	    	  }//if
                            
-	      } // for
+	      //} // for
 	
 	      for (Individuo ind : population.getIndividuos()){
 	    	  Solution s = (Solution) ind;
