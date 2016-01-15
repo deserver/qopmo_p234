@@ -1,6 +1,6 @@
-[Solucion(4):
- [fitness=0.6666666666666666, costo=1.5(0#0@0), genes= [
-{ID:-997(De:1 A:14 Nivel:Plata10) % Recuperacion:85.71428571428571 Primario: [{O:1;D:14}«1-3»[LdO=0,F=0]«3-5»[LdO=0,F=0]«5-11»[LdO=0,F=0]«11-13»[LdO=0,F=0]«9-13»[LdO=0,F=0]«8-9»[LdO=0,F=0]«8-14»[LdO=0,F=0]]; Secundario: [{O:1;D:14}«1-2»[LdO=0,F=0]«2-7»[LdO=0,F=0]«7-10»[LdO=0,F=0]«10-14»[LdO=0,F=0]]}, 
-{ID:-996(De:1 A:6 Nivel:Plata10) % Recuperacion:66.66666666666666 Primario: [{O:1;D:6}«1-3»[LdO=1,F=0]«3-5»[LdO=1,F=0]«5-6»[LdO=1,F=0]]; Secundario: [{O:1;D:6}«1-2»[LdO=0,F=0]«2-7»[LdO=0,F=0]«6-7»[LdO=0,F=0]]}, 
-{ID:-995(De:12 A:3 Nivel:Plata10) SIN SERVICIO }, 
-{ID:-994(De:6 A:1 Nivel:Plata10) SIN SERVICIO }]]
+[Solucion(6):
+ [fitness=0.37037037037037035, costo=2.7(0#0@0), genes= [
+{ID:-997(De:1 A:14 Nivel:Plata10) % Recuperacion:100.0 Primario: [{O:1;D:14}«1-4»[LdO=1,F=0]«4-11»[LdO=1,F=0]«11-13»[LdO=1,F=0]«13-14»[LdO=1,F=0]]; Secundario: [{O:1;D:14}«1-3»[LdO=1,F=0]«3-8»[LdO=1,F=0]«8-14»[LdO=1,F=0]]}, 
+{ID:-996(De:1 A:6 Nivel:Plata10) % Recuperacion:91.66666666666666 Primario: [{O:1;D:6}«1-3»[LdO=0,F=0]«3-8»[LdO=0,F=0]«8-9»[LdO=0,F=0]«9-10»[LdO=0,F=0]«7-10»[LdO=0,F=0]«6-7»[LdO=0,F=0]]; Secundario: [{O:1;D:6}«1-4»[LdO=0,F=0]«4-11»[LdO=0,F=0]«5-11»[LdO=0,F=0]«5-6»[LdO=0,F=0]]}, 
+{ID:-995(De:12 A:3 Nivel:Plata10) % Recuperacion:100.0 Primario: [{O:12;D:3}«11-12»[LdO=1,F=0]«5-11»[LdO=1,F=0]«3-5»[LdO=1,F=0]]; Secundario: [{O:12;D:3}«10-12»[LdO=0,F=0]«10-14»[LdO=0,F=0]«8-14»[LdO=0,F=0]«3-8»[LdO=1,F=0]]}, 
+{ID:-994(De:6 A:1 Nivel:Plata10) % Recuperacion:83.33333333333334 Primario: [{O:6;D:1}«6-7»[LdO=1,F=0]«2-7»[LdO=1,F=0]«1-2»[LdO=1,F=0]]; Secundario: [{O:6;D:1}«5-6»[LdO=0,F=0]«3-5»[LdO=0,F=0]«1-3»[LdO=1,F=0]]}]]

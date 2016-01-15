@@ -19,7 +19,7 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package qopmo.nsgaII.prueba4;
+package qopmo.nsgaII.prueba4.testG02;
 
 import jmetal.core.Algorithm;
 import jmetal.core.Operator;
@@ -30,7 +30,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
-
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -49,18 +48,15 @@ import qopmo.ag.Poblacion;
  *                  April 2009)
  */ 
 @RunWith(Parameterized.class)
-public class NSGAII_main {
+public class NSGAII_G02_main {
   public static Logger      logger_ ;      // Logger object
   public static FileHandler fileHandler_ ; // FileHandler object
 
 	private static String[] casosDePrueba = {
-			"1_1_10", "1_1_20", "1_1_30", "1_1_40", "1_1_50", 
-			"1_2_10", "1_2_20", "1_2_30", "1_2_40",	"1_2_50", 
-			"1_3_10", "1_3_20", "1_3_30", "1_3_40", "1_3_50",
-			"2_1_10", "2_1_20", "2_1_30", "2_1_40", "2_1_50",
-			"2_2_10", "2_2_20", "2_2_30", "2_2_40", "2_2_50",
-			"2_3_10", "2_3_20", "2_3_30", "2_3_40", "2_3_50"
+			"3_2_30", "3_2_40", "3_2_50",
+			"3_3_10", "3_3_20", "3_3_30", "3_3_40"
 			};
+
   public static int nrocaso;
 
   /**
@@ -92,17 +88,18 @@ public class NSGAII_main {
 	    //logger_      = Configuration.logger_ ;
 	    fileHandler_ = new FileHandler("NSGAII_main.log"); 
 	    //logger_.addHandler(fileHandler_) ;
-
+	        
+	      
 	    problem = new QOP();
 	    int corridas;
 	    String caso;
 	    nrocaso = 0;
 	    Poblacion population = new Poblacion(50);
-	    while (nrocaso < 30){
+	    while (nrocaso < casosDePrueba.length){
 	    	corridas = 1;
 	    	long initTime2 = System.currentTimeMillis();
 		    while(corridas < 11){
-			    algorithm = new NSGAII(problem, nrocaso);
+			    algorithm = new NSGAII_G02(problem, nrocaso);
 			    caso = casosDePrueba[nrocaso];
 			    
 			    //algorithm = new ssNSGAII(problem);

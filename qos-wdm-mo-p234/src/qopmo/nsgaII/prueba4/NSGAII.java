@@ -35,7 +35,6 @@ import javax.persistence.Persistence;
 import org.junit.Test;
 
 import jmetal.core.*;
-import jmetal.qualityIndicator.QualityIndicator;
 import jmetal.util.Distance;
 import jmetal.util.JMException;
 import jmetal.util.Ranking;
@@ -124,7 +123,6 @@ public class NSGAII extends Algorithm {
     int nrocaso;
     int corridas;
     
-    QualityIndicator indicators; // QualityIndicator object
     int requiredEvaluations; // Use in the example of use of the
     // indicators object (see below)
 
@@ -147,7 +145,6 @@ public class NSGAII extends Algorithm {
     nrocaso        = ((Integer) getInputParameter("nrocaso")).intValue();
     corridas       = ((Integer) getInputParameter("corridas")).intValue();
     
-    indicators = (QualityIndicator) getInputParameter("indicators");
 
     //Initialize the variables
     //population = new SolutionSet(populationSize);

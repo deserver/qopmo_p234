@@ -19,7 +19,7 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package qopmo.nsgaII.prueba3;
+package qopmo.nsgaII.prueba4.testG00;
 
 
 
@@ -63,12 +63,12 @@ import qopmo.wdm.qop.Solicitud;
  *     To be presented in: PPSN'08. Dortmund. September 2008.
  */
 
-public class NSGAII extends Algorithm {
+public class NSGAII_G00 extends Algorithm {
   /**
    * Constructor
    * @param problem Problem to solve
    */
-  public NSGAII(Problem problem, int x) {
+  public NSGAII_G00(Problem problem, int x) {
     super (problem) ;
 	this.num = x;
 	String caso = casosDePrueba[this.num];
@@ -79,7 +79,7 @@ public class NSGAII extends Algorithm {
   private static EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("tesis");
   private static EntityManager em = emf.createEntityManager();
-  private String casoPrincipal = "CasoCNunez_";
+  private String casoPrincipal = "caso_";
   
   public Poblacion population;
   public Red NSFNET;
@@ -87,19 +87,23 @@ public class NSGAII extends Algorithm {
   private CSVWriter csv = new CSVWriter();
   public String caso;
   private Integer num;
-  
 	private static int[] tiempoTotal = {
-			3000, 3000, 3000, 3000,	3000, 3000,
-			10000, 10000, 10000, 10000,	10000, 10000,
-			20000, 20000, 20000, 20000,	20000, 20000,
-			100000, 100000, 100000, 100000, 100000, 100000,
-			};
+			7000, 7000, 7000, 7000, 7000, //35 
+			8000, 8000, 8000, 8000,	8000, //40
+			9000, 9000, 9000, 9000, 9000,  //45
+			40000, 40000, 40000, 40000, 40000, //200
+			80000, 80000, 80000, 80000, 80000, //400
+			100000, 100000, 100000, 100000, 100000 //500
+			}; //1220
 		private static String[] casosDePrueba = {
-			"10", "11", "12", "13", "14", "15", 
-			"20", "21", "22", "23", "24", "25", 
-			"30", "31", "32", "33", "34", "35", 
-			"40", "41", "42", "43", "44", "45"
-			};
+				"1_1_10", "1_1_20", "1_1_30", "1_1_40", "1_1_50", 
+				"1_2_10", "1_2_20", "1_2_30", "1_2_40",	"1_2_50", 
+				"1_3_10", "1_3_20", "1_3_30", "1_3_40", "1_3_50",
+				"2_1_10", "2_1_20", "2_1_30", "2_1_40", "2_1_50",
+				"2_2_10", "2_2_20", "2_2_30", "2_2_40", "2_2_50",
+				"2_3_10", "2_3_20", "2_3_30", "2_3_40", "2_3_50"
+				};
+
 
   Problem   problem   ; // The problem to solve
   Algorithm algorithm ; // The algorithm to use
@@ -186,7 +190,9 @@ public class NSGAII extends Algorithm {
     
     while (evaluations < tiempoTotal[nrocaso]) {
 
-    	offspringPopulation = new Poblacion(populationSize*populationSize+populationSize);
+	      if (evaluations == 35)
+	    	  System.out.println("hola");
+	      offspringPopulation = new Poblacion(populationSize*populationSize+populationSize);
 	      copyPopulation = new Poblacion(populationSize*populationSize+populationSize);
 	      //offspringPopulation.copiarPoblacion(population);;
 	      
@@ -217,7 +223,7 @@ public class NSGAII extends Algorithm {
 		          evaluations++;
 		          
 	    	  }//if
-                         
+                           
 	      //} // for
 	
 	      for (Individuo ind : population.getIndividuos()){
@@ -230,9 +236,8 @@ public class NSGAII extends Algorithm {
 	      // Create the solutionSet union of solutionSet and offSpring
 	     // union = ((SolutionSet) population).union(offspringPopulation);
 	      
-
+ 
 	      union = offspringPopulation.union(population);
-
 	      // Ranking the union
 	      ranking = new Ranking(union);
 	
@@ -318,7 +323,7 @@ public class NSGAII extends Algorithm {
 	fin += " - Nº Generaciones: " + evaluations;
 	System.out.println(fin);
 	*/
-	System.out.println("\nEvaluaciones: "+ evaluations);
+	System.out.println("Evaluaciones: "+ evaluations);
 	
     // Return as output parameter the required evaluations
     setOutputParameter("evaluations", requiredEvaluations);
@@ -385,6 +390,7 @@ public class NSGAII extends Algorithm {
       evaluations++;
       population.add(newSolution);
     } //for       */
+
 	
 	public Poblacion getFront(Poblacion population){
 		Ranking ranking = new Ranking(population);
@@ -430,6 +436,5 @@ public class NSGAII extends Algorithm {
 		
 		return ranking.getSubfront(0);
 	}
-
 } // NSGA-II
 

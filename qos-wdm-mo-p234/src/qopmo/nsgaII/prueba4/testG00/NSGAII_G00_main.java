@@ -19,7 +19,7 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package qopmo.nsgaII.prueba4;
+package qopmo.nsgaII.prueba4.testG00;
 
 import jmetal.core.Algorithm;
 import jmetal.core.Operator;
@@ -30,7 +30,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
-
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -49,7 +48,7 @@ import qopmo.ag.Poblacion;
  *                  April 2009)
  */ 
 @RunWith(Parameterized.class)
-public class NSGAII_main {
+public class NSGAII_G00_main {
   public static Logger      logger_ ;      // Logger object
   public static FileHandler fileHandler_ ; // FileHandler object
 
@@ -92,23 +91,24 @@ public class NSGAII_main {
 	    //logger_      = Configuration.logger_ ;
 	    fileHandler_ = new FileHandler("NSGAII_main.log"); 
 	    //logger_.addHandler(fileHandler_) ;
-
+	        
+	      
 	    problem = new QOP();
 	    int corridas;
 	    String caso;
-	    nrocaso = 0;
+	    nrocaso = 4;
 	    Poblacion population = new Poblacion(50);
-	    while (nrocaso < 30){
+	    while (nrocaso < casosDePrueba.length){
 	    	corridas = 1;
 	    	long initTime2 = System.currentTimeMillis();
 		    while(corridas < 11){
-			    algorithm = new NSGAII(problem, nrocaso);
+			    algorithm = new NSGAII_G00(problem, nrocaso);
 			    caso = casosDePrueba[nrocaso];
 			    
 			    //algorithm = new ssNSGAII(problem);
 			
 			    // Algorithm parameters
-			    algorithm.setInputParameter("populationSize",5);
+			    algorithm.setInputParameter("populationSize",50);
 			    algorithm.setInputParameter("maxEvaluations",2500);
 			    algorithm.setInputParameter("probMutacion", 1);//10%
 			    algorithm.setInputParameter("nrocaso", nrocaso);
@@ -148,7 +148,18 @@ public class NSGAII_main {
 			    
 			    
 				
-				
+				System.out.println("Tiempo estimado de calculo: " + estimatedTime);
+				long tiempo = estimatedTime;
+				long hora = tiempo / 3600000;
+				long restohora = tiempo % 3600000;
+				long minuto = restohora / 60000;
+				long restominuto = restohora % 60000;
+				long segundo = restominuto / 1000;
+				long restosegundo = restominuto % 1000;
+				String time = hora + ":" + minuto + ":" + segundo + "." + restosegundo;
+				time = " Tiempo: " + time;
+				String fin = caso + " FIN - Test Genetico. Tiempo:" + time;
+				System.out.println(fin);
 			    // Result messages 
 				if (population != null){
 				    //logger_.info("Total execution time: "+estimatedTime + "ms");

@@ -109,12 +109,14 @@ public class Poblacion {
 			newSize = this.capacity;
 		
 	    Poblacion union = new Poblacion(newSize);                
-	    for (int i = 0; i < this.size(); i++) {      
-	      union.add(this.get(i));
+	    for (int i = 0; i < this.size(); i++) {   
+	    	//if (this.get(i).caminoValido())
+	    		union.add(this.get(i));
 	    } // for
 
 	    for (int i = this.size(); i < (this.size() + population.size()); i++) {
-	      union.add(population.get(i-this.size()));
+	    	//if (population.get(i-this.size()).caminoValido())
+	    		union.add(population.get(i-this.size()));
 	    } // for
 	    
 		return union;
@@ -327,7 +329,7 @@ public class Poblacion {
 			red.inicializar();
 			hijo =this.operadorCruce.cruzar(individuo1, individuo2);
 			
-			hijo = mutar(hijo, probMutacion);//Mutar con probabilidad probMutacion
+			//hijo = mutar(hijo, probMutacion);//Mutar con probabilidad probMutacion
 
 			this.hijos.add(hijo);
 		}
@@ -640,7 +642,7 @@ public class Poblacion {
 	       for (Solution aSolutionsList_ : solutionsList) {
 	         //if (this.vector[i].getFitness()<1.0) {
 	         bw.write(aSolutionsList_.toString());
-	         //System.out.println(aSolutionsList_.toString());
+	         System.out.println(aSolutionsList_.toString());
 	         aSolutionsList_.imprimirCosto();
 	         System.out.println("");
 	         //System.out.println(this.almacenarMejor(0, aSolutionsList_));
