@@ -80,7 +80,7 @@ public class NSGAII extends Algorithm {
   private static EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("tesis");
   private static EntityManager em = emf.createEntityManager();
-  private String casoPrincipal = "caso_";
+  private String casoPrincipal = "CasoCNunez_";
   
   public Poblacion population;
   public Red NSFNET;
@@ -90,20 +90,16 @@ public class NSGAII extends Algorithm {
   private Integer num;
   
 	private static int[] tiempoTotal = {
-			7000, 7000, 7000, 7000, 7000, //35 
-			8000, 8000, 8000, 8000,	8000, //40
-			9000, 9000, 9000, 9000, 9000,  //45
-			40000, 40000, 40000, 40000, 40000, //200
-			80000, 80000, 80000, 80000, 80000, //400
-			100000, 100000, 100000, 100000, 100000 //500
-			}; //1220
-	private static String[] casosDePrueba = {
-			"1_1_10", "1_1_20", "1_1_30", "1_1_40", "1_1_50", 
-			"1_2_10", "1_2_20", "1_2_30", "1_2_40",	"1_2_50", 
-			"1_3_10", "1_3_20", "1_3_30", "1_3_40", "1_3_50",
-			"2_1_10", "2_1_20", "2_1_30", "2_1_40", "2_1_50",
-			"2_2_10", "2_2_20", "2_2_30", "2_2_40", "2_2_50",
-			"2_3_10", "2_3_20", "2_3_30", "2_3_40", "2_3_50"
+			3000, 3000, 3000, 3000,	3000, 3000,
+			10000, 10000, 10000, 10000,	10000, 10000,
+			20000, 20000, 20000, 20000,	20000, 20000,
+			100000, 100000, 100000, 100000, 100000, 100000,
+			};
+		private static String[] casosDePrueba = {
+			"10", "11", "12", "13", "14", "15", 
+			"20", "21", "22", "23", "24", "25", 
+			"30", "31", "32", "33", "34", "35", 
+			"40", "41", "42", "43", "44", "45"
 			};
 
   Problem   problem   ; // The problem to solve

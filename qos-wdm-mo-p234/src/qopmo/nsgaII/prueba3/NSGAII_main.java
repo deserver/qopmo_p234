@@ -66,13 +66,12 @@ public class NSGAII_main {
   public static FileHandler fileHandler_ ; // FileHandler object
 
 	private static String[] casosDePrueba = {
-			"1_1_10", "1_1_20", "1_1_30", "1_1_40", "1_1_50", 
-			"1_2_10", "1_2_20", "1_2_30", "1_2_40",	"1_2_50", 
-			"1_3_10", "1_3_20", "1_3_30", "1_3_40", "1_3_50",
-			"2_1_10", "2_1_20", "2_1_30", "2_1_40", "2_1_50",
-			"2_2_10", "2_2_20", "2_2_30", "2_2_40", "2_2_50",
-			"2_3_10", "2_3_20", "2_3_30", "2_3_40", "2_3_50"
+			"10", "11", "12", "13", "14", "15", 
+			"20", "21", "22", "23", "24", "25", 
+			"30", "31", "32", "33", "34", "35", 
+			"40", "41", "42", "43", "44", "45"
 			};
+	
   public static int nrocaso;
 
   /**
@@ -141,7 +140,7 @@ public class NSGAII_main {
 			
 			    // Algorithm parameters
 			    algorithm.setInputParameter("populationSize",50);
-			    algorithm.setInputParameter("maxEvaluations",2500);
+			    algorithm.setInputParameter("maxEvaluations",1000);
 			    algorithm.setInputParameter("probMutacion", 1);//10%
 			    algorithm.setInputParameter("nrocaso", nrocaso);
 			    algorithm.setInputParameter("corridas", corridas);

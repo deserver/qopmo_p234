@@ -327,7 +327,7 @@ public class Poblacion {
 			red.inicializar();
 			hijo =this.operadorCruce.cruzar(individuo1, individuo2);
 			
-			//hijo = mutar(hijo, probMutacion);//Mutar con probabilidad probMutacion
+			hijo = mutar(hijo, probMutacion);//Mutar con probabilidad probMutacion
 
 			this.hijos.add(hijo);
 		}
@@ -342,11 +342,12 @@ public class Poblacion {
 		Random rand = new Random();
 		rand.nextInt(10);
 		int ind3 = rand.nextInt(10);
-		Solution s2 = (Solution) i;
 		if (ind3 <= limite) {
+			Solution s2 = new Solution(i);
 			s2.random(esquema);
+			i = (Individuo) s2;
 		}
-		i = (Individuo) s2;
+		
 		return i;
 	}
 
