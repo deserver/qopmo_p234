@@ -231,7 +231,7 @@ public class NSGAII extends Algorithm {
 	     // union = ((SolutionSet) population).union(offspringPopulation);
 	      
 
-	      union = offspringPopulation.union(population);
+	      union = offspringPopulation.unionsincontrol(population);
 
 	      // Ranking the union
 	      ranking = new Ranking(union);

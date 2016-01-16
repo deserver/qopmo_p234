@@ -110,12 +110,28 @@ public class Poblacion {
 		
 	    Poblacion union = new Poblacion(newSize);                
 	    for (int i = 0; i < this.size(); i++) {   
-	    	//if (this.get(i).caminoValido())
+	    	if (this.get(i).caminoValido())
 	    		union.add(this.get(i));
 	    } // for
 
 	    for (int i = this.size(); i < (this.size() + population.size()); i++) {
-	    	//if (population.get(i-this.size()).caminoValido())
+	    	if (population.get(i-this.size()).caminoValido())
+	    		union.add(population.get(i-this.size()));
+	    } // for
+	    
+		return union;
+	}
+	public Poblacion unionsincontrol(Poblacion population){
+		int newSize = this.size() + population.size();
+		if (newSize < this.capacity)
+			newSize = this.capacity;
+		
+	    Poblacion union = new Poblacion(newSize);                
+	    for (int i = 0; i < this.size(); i++) {   
+	    		union.add(this.get(i));
+	    } // for
+
+	    for (int i = this.size(); i < (this.size() + population.size()); i++) {
 	    		union.add(population.get(i-this.size()));
 	    } // for
 	    
