@@ -184,16 +184,17 @@ public class NSGAII_G00 extends Algorithm {
     Ranking ranking = new Ranking(population);
     evaluations = 0;
     int cantIt = 0;
+    int size, tamanho = 0;
     // Generations 
 
     System.out.println(caso + "-" + corridas + " Test Genetico.");
     
     while (evaluations < tiempoTotal[nrocaso]) {
 
-	      if (evaluations == 35)
-	    	  System.out.println("hola");
-	      offspringPopulation = new Poblacion(populationSize*populationSize+populationSize);
-	      copyPopulation = new Poblacion(populationSize*populationSize+populationSize);
+    	  size = population.getIndividuos().size();
+    	  tamanho = size*size+size;
+	      offspringPopulation = new Poblacion(tamanho);
+	      copyPopulation = new Poblacion(tamanho);
 	      //offspringPopulation.copiarPoblacion(population);;
 	      
 	      
@@ -216,9 +217,10 @@ public class NSGAII_G00 extends Algorithm {
 		          Collection<Individuo> selectos = seleccionOp.seleccionar(population);
 		          
 		          population.cruzar(selectos, probMutacion);
-		          copyPopulation.copiarPoblacion(offspringPopulation);
+		          /*copyPopulation.copiarPoblacion(offspringPopulation);
 		          Poblacion mejores = getFront(copyPopulation);
-		          population.siguienteGeneracion(mejores);
+		          population.siguienteGeneracion(mejores);*/
+		          population.siguienteGeneracion();
 		          
 		          evaluations++;
 		          
@@ -237,7 +239,7 @@ public class NSGAII_G00 extends Algorithm {
 	     // union = ((SolutionSet) population).union(offspringPopulation);
 	      
  
-	      union = offspringPopulation.union(population);
+	      union = offspringPopulation.unionsincontrol(population);
 	      // Ranking the union
 	      ranking = new Ranking(union);
 	

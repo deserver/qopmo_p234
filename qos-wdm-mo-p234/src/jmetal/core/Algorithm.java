@@ -165,4 +165,6 @@ public abstract class Algorithm implements Serializable {
   public Problem getProblem() {
   	return problem_ ;
   }
+  
+  public abstract Poblacion getFront(Poblacion population) throws JMException, ClassNotFoundException ;
 } // Algorithm

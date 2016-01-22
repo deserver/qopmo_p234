@@ -122,6 +122,7 @@ public class NSGAII extends Algorithm {
     int requiredEvaluations; // Use in the example of use of the
     // indicators object (see below)
 
+    long initTime2 = System.currentTimeMillis();
     //Poblacion population;
     //SolutionSet population;
     Poblacion offspringPopulation;
@@ -180,14 +181,17 @@ public class NSGAII extends Algorithm {
     Ranking ranking = new Ranking(population);
     evaluations = 0;
     int cantIt = 0;
+	int size=0;
     // Generations 
 
     System.out.println(caso + "-" + corridas + " Test Genetico.");
     
     while (evaluations < tiempoTotal[nrocaso]) {
 
-    	offspringPopulation = new Poblacion(populationSize*populationSize+populationSize);
-	      copyPopulation = new Poblacion(populationSize*populationSize+populationSize);
+    	long initTime = System.currentTimeMillis();
+    	size = population.getIndividuos().size();
+    	offspringPopulation = new Poblacion(size*size+size);
+	      copyPopulation = new Poblacion(size*size+size);
 	      //offspringPopulation.copiarPoblacion(population);;
 	      
 	      
@@ -201,8 +205,12 @@ public class NSGAII extends Algorithm {
 			    	  problem_.evaluate(s);
 			    	  //if (s.getCosto()<2.8)
 			    		  //System.out.println(s.getCosto());
-			    	  if (s.getCosto() > 0)
+			    	  if (s.getCosto() > 0 && s.getCosto()< Double.MAX_VALUE)
 			        	  offspringPopulation.add(s);
+			    	 /* if (s.getObjective(1) != 0 && s.getObjective(1) != 999)
+			    		  System.out.println("Objective 1:" + s.getObjective(1));
+			    	  if (s.getObjective(2) != 0 && s.getObjective(2) != 999)
+			    		  System.out.println("Objective 2:" + s.getObjective(2));*/
 
 			      }
 		        	
@@ -210,9 +218,10 @@ public class NSGAII extends Algorithm {
 		          Collection<Individuo> selectos = seleccionOp.seleccionar(population);
 		          
 		          population.cruzar(selectos, probMutacion);
-		          copyPopulation.copiarPoblacion(offspringPopulation);
+		          /*copyPopulation.copiarPoblacion(offspringPopulation);
 		          Poblacion mejores = getFront(copyPopulation);
-		          population.siguienteGeneracion(mejores);
+		          population.siguienteGeneracion(mejores);*/
+		          population.siguienteGeneracion();
 		          
 		          evaluations++;
 		          
@@ -224,9 +233,11 @@ public class NSGAII extends Algorithm {
 	    	  Solution s = (Solution) ind;
 	    	  s.setNumberOfObjectives(problem_.getNumberOfObjectives());
 	    	  problem_.evaluate(s);
-	    	  if (s.getCosto() > 0)
+	    	  if (s.getCosto() > 0 && s.getCosto()< Double.MAX_VALUE)
 	        	  offspringPopulation.add(s);
+	    	  
 	      }
+
 	      // Create the solutionSet union of solutionSet and offSpring
 	     // union = ((SolutionSet) population).union(offspringPopulation);
 	      
@@ -294,9 +305,33 @@ public class NSGAII extends Algorithm {
 				ranking = new Ranking(population);
 				if (ranking.getSubfront(0) != null){
 					ranking.getSubfront(0).printParcialResults();
-					ranking.getSubfront(0).printVariablesToFile("VAR_p3"+"_"+caso);
+					ranking.getSubfront(0).printVariablesToFile("VAR_Parcial_p3_"+caso);
 				}
 				//((Solution) p.getMejor()).imprimirCosto();
+				long estimatedTime2 = System.currentTimeMillis() - initTime;
+			    long tiempo = estimatedTime2;
+				long hora = tiempo / 3600000;
+				long restohora = tiempo % 3600000;
+				long minuto = restohora / 60000;
+				long restominuto = restohora % 60000;
+				long segundo = restominuto / 1000;
+				long restosegundo = restominuto % 1000;
+				String time = hora + ":" + minuto + ":" + segundo + "." + restosegundo;
+				time = " Tiempo: " + time;
+				String fin = casosDePrueba[nrocaso] + " FIN - Test Genetico. Tiempo:" + time;
+				//fin += " - Nº Generaciones: " + evaluations;
+				System.out.println(fin);
+				long TiempoTotal = System.currentTimeMillis() - initTime2;
+				tiempo = TiempoTotal;
+				hora = tiempo / 3600000;
+				restohora = tiempo % 3600000;
+				minuto = restohora / 60000;
+				restominuto = restohora % 60000;
+				segundo = restominuto / 1000;
+				restosegundo = restominuto % 1000;
+				time = hora + ":" + minuto + ":" + segundo + "." + restosegundo;
+				//time = " Tiempo: " + time;
+				System.out.println("Tiempo total Transcurrido: "+ time);
 	      }
     } // while
     cantIt++;

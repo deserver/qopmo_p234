@@ -131,8 +131,8 @@ public class Ranking {
     	  if (solutionSet_.get(p).costo!= 0 && solutionSet_.get(q).costo != 0){
 		        flagDominate =constraint_.compare(solutionSet_.get(p),solutionSet_.get(q));
 		        if (flagDominate == 0) {
-		    		//flagDominate =dominance_.compare(solutionSet.get(p),solutionSet.get(q));
-		        	flagDominate = solutionSet_.get(p).comparar(solutionSet_.get(q));
+		    		flagDominate =dominance_.compare(solutionSet.get(p),solutionSet.get(q));
+		        	//flagDominate = solutionSet_.get(p).comparar(solutionSet_.get(q));
 		        }
 		        if (flagDominate == -1)
 		        {

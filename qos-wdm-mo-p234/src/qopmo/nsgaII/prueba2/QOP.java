@@ -60,12 +60,12 @@ public class QOP extends Problem {
 			solution.costo = this.costoTotalCanales(solution);
 			// Fitness de la Solución
 			solution.fitness_ = 1 / solution.costo;
-			solution.setObjective(0, solution.fitness_);
+			solution.setObjective(0, solution.costo);
 			solution.evaluarProbabilidadRecuperacion();
 			solution.diferenciaNiveles();	
 			solution.setObjective(3, solution.getDiferenciaNiveles());
 		}else{
-			solution.setObjective(0, solution.fitness_);
+			solution.setObjective(0, solution.costo);
 			solution.setObjective(3, 0);
 		}
 		
@@ -155,7 +155,7 @@ public class QOP extends Problem {
 		else if(solution.contadorFailBroncePrimario!=0)
 			solution.setObjective(1, solution.contadorFailBroncePrimario);
 		else
-			solution.setObjective(1, 999);
+			solution.setObjective(1, 0);
 		
 		//Aplicacion del objetivo 2 - servicios sin proteccion
 		if (solution.contadorFailOroAlternativo!=0)
@@ -163,7 +163,7 @@ public class QOP extends Problem {
 		else if(solution.contadorFailPlataAlternativo!=0)
 			solution.setObjective(2, solution.contadorFailPlataAlternativo);
 		else 
-			solution.setObjective(2, 999);
+			solution.setObjective(2, 0);
 		
 		
 		// Fórmula de Costo de una Solución

@@ -11,7 +11,7 @@ public class CSVReader {
 
 	private static String DIR_SOLICITUDES = "solicitudes";
 	private static String DIR_REDES = "redes";
-	private static String DIR_HOME_LINUX = "/home/sergio/workspace/qos-wdm/datos/";
+	private static String DIR_HOME_LINUX = "/home/sergio/git/qopmo_p234/qos-wdm-mo-p234/datos/";
 	private static String DIR_HOME_WINDOWS = "C:\\Users\\mrodas\\workspace\\qos-wdm\\datos\\";
 
 	private static String csvSplitBy = ";";

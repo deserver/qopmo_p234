@@ -28,6 +28,8 @@ import jmetal.util.JMException;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
@@ -93,14 +95,16 @@ public class NSGAII_main {
 	    //logger_.addHandler(fileHandler_) ;
 	        
 	    problem = new QOP();
+	    
 	    int corridas;
 	    String caso;
-	    nrocaso = 5;
+	    nrocaso = 0;
 	    Poblacion population = new Poblacion(50);
+	    Poblacion gralPopulation = new Poblacion(50);
 	    while (nrocaso < 30){
 	    	corridas = 1;
 	    	long initTime2 = System.currentTimeMillis();
-		    while(corridas < 11){
+		    while(corridas < 10){
 			    algorithm = new NSGAII(problem, nrocaso);
 			    caso = casosDePrueba[nrocaso];
 			    
@@ -144,7 +148,7 @@ public class NSGAII_main {
 			    
 			    population = algorithm.execute();
 			    long estimatedTime = System.currentTimeMillis() - initTime;
-			    
+			    gralPopulation.copiarPoblacion(population);
 			    
 				
 				
@@ -152,9 +156,9 @@ public class NSGAII_main {
 				if (population != null){
 				    //logger_.info("Total execution time: "+estimatedTime + "ms");
 				    //logger_.info("Variables values have been writen to file VAR");
-				    population.printVariablesToFile("VAR_p4"+caso);    
+				    population.printVariablesToFile("VAR_Final_p3_"+caso);    
 				    //logger_.info("Objectives values have been writen to file FUN");
-				    population.printObjectivesToFile("FUN_p4"+caso);
+				    population.printObjectivesToFile("FUN_Final_p3_"+caso);
 				}else{
 					System.out.println("No arrojo resultados");
 				}
@@ -185,13 +189,15 @@ public class NSGAII_main {
 		String fin = casosDePrueba[nrocaso] + " FIN - Test Genetico. Tiempo:" + time;
 		//fin += " - Nº Generaciones: " + evaluations;
 		System.out.println(fin);
-		if (population != null)
-			population.printFinalResults();
+		//if (population != null)
+			//population.printFinalResults();
 			
 		nrocaso++;
 		
   		}
-	    
+	    algorithm = new NSGAII(problem, 0);
+	    Poblacion finalPopulation = algorithm.getFront(gralPopulation);
+	    finalPopulation.printVariablesToFile("Conjunto_Pareto_Final_"+40);
 	    System.out.println("FIN Prueba Algoritmo Genetico. (Segment-Oriented).");
 	  
   } //main

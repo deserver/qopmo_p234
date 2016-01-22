@@ -1,0 +1,39 @@
++ACI-Corrida+ACI-	+ACI-Costo+ACI-	+ACI-Diferencia de Niveles+ACI-	+ACI-Ganancia de Niveles+ACI-	+ACI-Fallas Oro+ACI-	+ACI-Fallas Plata+ACI-	+ACI-Fallas Bronce+ACI-	
++ACI-Segment+AF8-Best+AF8-19911+ACI-	5,7	0	588,89	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19892+ACI-	5,5	0	600	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19884+ACI-	5,6	0	511,11	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19879+ACI-	5,5	0	522,22	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19549+ACI-	5,5	0	683,33	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19587+ACI-	5,6	0	627,78	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19885+ACI-	5,3	0	500	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19882+ACI-	5,3	0	544,44	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19858+ACI-	5,6	0	594,44	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19925+ACI-	5,6	0	583,33	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	5,52
++ACI-Corrida+ACI-	+ACI-Costo+ACI-	+ACI-Diferencia de Niveles+ACI-	+ACI-Ganancia de Niveles+ACI-	+ACI-Fallas Oro+ACI-	+ACI-Fallas Plata+ACI-	+ACI-Fallas Bronce+ACI-	
++ACI-Segment+AF8-Best+AF8-19795+ACI-	5,7	0	661,11	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19818+ACI-	5,5	0	550	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19875+ACI-	5,6	0	527,78	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19419+ACI-	5,4	0	588,89	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19603+ACI-	5,4	0	633,33	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19152+ACI-	5,6	0	666,67	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19358+ACI-	5,5	0	561,11	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19901+ACI-	5,5	0	472,22	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19956+ACI-	5,3	0	433,33	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19737+ACI-	5,5	0	588,89	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	5,5
++ACI-Corrida+ACI-	+ACI-Costo+ACI-	+ACI-Diferencia de Niveles+ACI-	+ACI-Ganancia de Niveles+ACI-	+ACI-Fallas Oro+ACI-	+ACI-Fallas Plata+ACI-	+ACI-Fallas Bronce+ACI-	
++ACI-Segment+AF8-Best+AF8-19962+ACI-	5,6	0	633,33	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19893+ACI-	5,6	0	650	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19940+ACI-	5,6	0	594,44	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19922+ACI-	5,5	0	488,89	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	
++ACI-Segment+AF8-Best+AF8-19938+ACI-	5,6	0	650	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0	5,58
+Corrida;Costo;Diferencia de Niveles;Ganancia de Niveles;Fallas Oro;Fallas Plata;Fallas Bronce
+Segment_Best_40153;5,5;0;494,44;0-0;0-0;0
+Segment_Best_40154;5,5;0;550,00;0-0;0-0;0
+Segment_Best_40211;5,5;0;466,67;0-0;0-0;0
+Segment_Best_40164;5,4;0;633,33;0-0;0-0;0
+Segment_Best_40204;5,5;0;622,22;0-0;0-0;0
+Segment_Best_40114;5,5;0;522,22;0-0;0-0;0
+Segment_Best_40136;5,6000000000000005;0;566,67;0-0;0-0;0
+Segment_Best_40138;5,4;0;650,00;0-0;0-0;0
+Segment_Best_40177;5,5;0;600,00;0-0;0-0;0
+Segment_Best_40201;5,4;0;566,67;0-0;0-0;0

@@ -1,0 +1,92 @@
+Calculo de suma total de Niveles de QoS Solicitados.
+----------------------------------------------------
+
+Caso de Prueba: caso_1_1_10. => Suma de Niveles = 630
+Caso de Prueba: caso_1_1_20. => Suma de Niveles = 650
+Caso de Prueba: caso_1_1_30. => Suma de Niveles = 720
+Caso de Prueba: caso_1_1_40. => Suma de Niveles = 680
+Caso de Prueba: caso_1_1_50. => Suma de Niveles = 650
+
+Caso de Prueba: caso_1_2_10. => Suma de Niveles = 610
+Caso de Prueba: caso_1_2_20. => Suma de Niveles = 630
+Caso de Prueba: caso_1_2_30. => Suma de Niveles = 740
+Caso de Prueba: caso_1_2_40. => Suma de Niveles = 720
+Caso de Prueba: caso_1_2_50. => Suma de Niveles = 690
+
+Caso de Prueba: caso_1_3_10. => Suma de Niveles = 640
+Caso de Prueba: caso_1_3_20. => Suma de Niveles = 640
+Caso de Prueba: caso_1_3_30. => Suma de Niveles = 690
+Caso de Prueba: caso_1_3_40. => Suma de Niveles = 760
+Caso de Prueba: caso_1_3_50. => Suma de Niveles = 790
+
+Caso de Prueba: caso_2_1_10. => Suma de Niveles = 1260
+Caso de Prueba: caso_2_1_20. => Suma de Niveles = 1250
+Caso de Prueba: caso_2_1_30. => Suma de Niveles = 1420
+Caso de Prueba: caso_2_1_40. => Suma de Niveles = 1800
+Caso de Prueba: caso_2_1_50. => Suma de Niveles = 1310
+
+Caso de Prueba: caso_2_2_10. => Suma de Niveles = 1270
+Caso de Prueba: caso_2_2_20. => Suma de Niveles = 1270
+Caso de Prueba: caso_2_2_30. => Suma de Niveles = 1350
+Caso de Prueba: caso_2_2_40. => Suma de Niveles = 1620
+Caso de Prueba: caso_2_2_50. => Suma de Niveles = 1500
+
+Caso de Prueba: caso_2_3_10. => Suma de Niveles = 1270
+Caso de Prueba: caso_2_3_20. => Suma de Niveles = 1290
+Caso de Prueba: caso_2_3_30. => Suma de Niveles = 1380
+Caso de Prueba: caso_2_3_40. => Suma de Niveles = 1410
+Caso de Prueba: caso_2_3_50. => Suma de Niveles = 1550
+
+Caso de Prueba: caso_3_1_10. => Suma de Niveles = 1860
+Caso de Prueba: caso_3_1_20. => Suma de Niveles = 1860
+Caso de Prueba: caso_3_1_30. => Suma de Niveles = 2100
+Caso de Prueba: caso_3_1_40. => Suma de Niveles = 2200
+Caso de Prueba: caso_3_1_50. => Suma de Niveles = 2290
+
+Caso de Prueba: caso_3_2_10. => Suma de Niveles = 1870
+Caso de Prueba: caso_3_2_20. => Suma de Niveles = 1950
+Caso de Prueba: caso_3_2_30. => Suma de Niveles = 2140
+Caso de Prueba: caso_3_2_40. => Suma de Niveles = 2310
+Caso de Prueba: caso_3_2_50. => Suma de Niveles = 2270
+
+Caso de Prueba: caso_3_3_10. => Suma de Niveles = 1820
+Caso de Prueba: caso_3_3_20. => Suma de Niveles = 1910
+Caso de Prueba: caso_3_3_30. => Suma de Niveles = 2060
+Caso de Prueba: caso_3_3_40. => Suma de Niveles = 2290
+Caso de Prueba: caso_3_3_50. => Suma de Niveles = 2310
+
+Caso de Prueba: caso_4_1_10. => Suma de Niveles = 2530
+Caso de Prueba: caso_4_1_20. => Suma de Niveles = 2540
+Caso de Prueba: caso_4_1_30. => Suma de Niveles = 2620
+Caso de Prueba: caso_4_1_40. => Suma de Niveles = 2910
+Caso de Prueba: caso_4_1_50. => Suma de Niveles = 3220
+
+Caso de Prueba: caso_4_2_10. => Suma de Niveles = 2530
+Caso de Prueba: caso_4_2_20. => Suma de Niveles = 2600
+Caso de Prueba: caso_4_2_30. => Suma de Niveles = 2820
+Caso de Prueba: caso_4_2_40. => Suma de Niveles = 3230
+Caso de Prueba: caso_4_2_50. => Suma de Niveles = 3330
+
+Caso de Prueba: caso_4_3_10. => Suma de Niveles = 2510
+Caso de Prueba: caso_4_3_20. => Suma de Niveles = 2470
+Caso de Prueba: caso_4_3_30. => Suma de Niveles = 2530
+Caso de Prueba: caso_4_3_40. => Suma de Niveles = 3090
+Caso de Prueba: caso_4_3_50. => Suma de Niveles = 3030
+
+Caso de Prueba: caso_5_1_10. => Suma de Niveles = 3130
+Caso de Prueba: caso_5_1_20. => Suma de Niveles = 3060
+Caso de Prueba: caso_5_1_30. => Suma de Niveles = 3420
+Caso de Prueba: caso_5_1_40. => Suma de Niveles = 3990
+Caso de Prueba: caso_5_1_50. => Suma de Niveles = 3630
+
+Caso de Prueba: caso_5_2_10. => Suma de Niveles = 3120
+Caso de Prueba: caso_5_2_20. => Suma de Niveles = 3170
+Caso de Prueba: caso_5_2_30. => Suma de Niveles = 3500
+Caso de Prueba: caso_5_2_40. => Suma de Niveles = 3530
+Caso de Prueba: caso_5_2_50. => Suma de Niveles = 4150
+
+Caso de Prueba: caso_5_3_10. => Suma de Niveles = 3120
+Caso de Prueba: caso_5_3_20. => Suma de Niveles = 3200
+Caso de Prueba: caso_5_3_30. => Suma de Niveles = 3370
+Caso de Prueba: caso_5_3_40. => Suma de Niveles = 3700
+Caso de Prueba: caso_5_3_50. => Suma de Niveles = 3790

@@ -1,0 +1,33 @@
++ACI-Corrida+ACI-	+ACI-Costo+ACI-	+ACI-Diferencia de Niveles+ACI-	+ACI-Ganancia de Niveles+ACI-	+ACI-Fallas Oro+ACI-	+ACI-Fallas Plata+ACI-	+ACI-Fallas Bronce+ACI-
++ACI-Segment+AF8-Best+AF8-5369+ACI-	2,7	0	650	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0
++ACI-Segment+AF8-Best+AF8-5371+ACI-	2,7	0	650	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0
++ACI-Segment+AF8-Best+AF8-5387+ACI-	2,7	0	650	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0
++ACI-Segment+AF8-Best+AF8-5413+ACI-	2,7	0	650	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0
++ACI-Segment+AF8-Best+AF8-5445+ACI-	2,7	0	650	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0
++ACI-Segment+AF8-Best+AF8-5415+ACI-	2,7	0	650	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0
++ACI-Segment+AF8-Best+AF8-5422+ACI-	2,7	0	650	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0
++ACI-Segment+AF8-Best+AF8-5400+ACI-	2,7	0	650	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0
++ACI-Segment+AF8-Best+AF8-5419+ACI-	2,7	0	650	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0
++ACI-Segment+AF8-Best+AF8-5413+ACI-	2,7	0	650	+ACI-0+AC0-0+ACI-	+ACI-0+AC0-0+ACI-	0
+Corrida;Costo;Diferencia de Niveles;Ganancia de Niveles;Fallas Oro;Fallas Plata;Fallas Bronce
+Segment_Best_9958;2,7;0;650,00;0-0;0-0;0
+Segment_Best_9982;2,7;0;650,00;0-0;0-0;0
+Segment_Best_9421;2,7;0;650,00;0-0;0-0;0
+Segment_Best_9070;2,7;0;650,00;0-0;0-0;0
+Segment_Best_9544;2,7;0;650,00;0-0;0-0;0
+Segment_Best_9790;2,7;0;650,00;0-0;0-0;0
+Segment_Best_9574;2,7;0;650,00;0-0;0-0;0
+Segment_Best_7985;2,7;0;650,00;0-0;0-0;0
+Segment_Best_6959;2,7;0;650,00;0-0;0-0;0
+Segment_Best_7712;2,7;0;650,00;0-0;0-0;0
+Corrida;Costo;Diferencia de Niveles;Ganancia de Niveles;Fallas Oro;Fallas Plata;Fallas Bronce
+Segment_Best_6871;6,2;0;610,00;0-0;0-0;0
+Segment_Best_10171;2,7;0;650,00;0-0;0-0;0
+Segment_Best_10027;2,7;0;650,00;0-0;0-0;0
+Segment_Best_10030;2,7;0;650,00;0-0;0-0;0
+Segment_Best_7783;2,7;0;650,00;0-0;0-0;0
+Segment_Best_7613;2,7;0;650,00;0-0;0-0;0
+Segment_Best_7496;2,7;0;650,00;0-0;0-0;0
+Segment_Best_8548;2,7;0;650,00;0-0;0-0;0
+Segment_Best_9953;2,7;0;650,00;0-0;0-0;0
+Segment_Best_10021;2,7;0;650,00;0-0;0-0;0

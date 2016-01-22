@@ -465,10 +465,10 @@ public class Solution implements Serializable, Individuo {
 		return "[Solucion(" + this.id + "):\n [fitness=" + fitness_ + ", costo="
 				+ costo + "(" + this.contadorCosto + "#" + this.cambiosLDO
 				+ "@" + diffNivel + "), genes="
-				+ (genes != null ? toString(genes, maxLen) : "Vacio.") + "]";
-				/*+ "\nFitness "+ this.getObjective(0) + " Sin servicio: "
+				+ (genes != null ? toString(genes, maxLen) : "Vacio.") + "]"
+				+ "\nFitness "+ this.getObjective(0) + " Sin servicio: "
 				+ this.getObjective(1) + " Sin proteccion: " + this.getObjective(2)
-				+ " Diferencia Niveles: " + this.getObjective(3);*/
+				+ " Diferencia Niveles: " + this.getObjective(3);
 	}
 
 	private String toString(Set<Servicio> collection, int maxLen) {
@@ -1381,7 +1381,7 @@ public class Solution implements Serializable, Individuo {
 		retorno += ". Ganancia:" + ganancia;
 		String diff = ". $F$ " + this.totalFallas();
 		retorno += diff;
-		System.out.print(retorno);
+		System.out.println(retorno);
 	}
 	
 	public String imprimirCosto2() {

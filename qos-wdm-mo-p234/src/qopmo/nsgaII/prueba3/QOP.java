@@ -54,19 +54,20 @@ public class QOP extends Problem {
 	
 	@Override
 	public void evaluate(Solution solution) throws JMException {
-
-		if (this.costoTotalCanales(solution)>0){
+		
+		double costo;
+		if ((costo = this.costoTotalCanales(solution))>0){
 			// Costo de una Solucion
-			solution.costo = this.costoTotalCanales(solution);
+			solution.costo = costo;
 			// Fitness de la Solución
 			solution.fitness_ = 1 / solution.costo;
-			solution.setObjective(0, solution.fitness_);
+			solution.setObjective(0, solution.costo);
 			solution.evaluarProbabilidadRecuperacion();
 			solution.diferenciaNiveles();	
-			//solution.setObjective(3, solution.getDiferenciaNiveles());
-			solution.setObjective(3, 0);
+			solution.setObjective(3, solution.getDiferenciaNiveles());
+			//solution.setObjective(3, 0);
 		}else{
-			solution.setObjective(0, solution.fitness_);
+			solution.setObjective(0, solution.costo);
 			solution.setObjective(3, 0);
 		}
 		
@@ -89,7 +90,8 @@ public class QOP extends Problem {
 		 */
 		for (Servicio gen : solution.genes) {
 
-			if (gen == null || !gen.esValido())
+			//if (gen == null || !gen.esValido())
+			if (gen == null)
 				continue;
 
 			// Se cuenta cada Oro que no tiene un alternativo.
@@ -108,7 +110,8 @@ public class QOP extends Problem {
 			 */
 			Camino primario = gen.getPrimario();
 
-			if (primario.getDestino() == null) {
+			//if (primario.getDestino() == null) {
+			if (primario == null) {
 				Nivel nivel = gen.getSolicitud().getNivel();
 				if (nivel.esOro()) {
 					solution.contadorFailOroPrimario++;
@@ -133,7 +136,8 @@ public class QOP extends Problem {
 			if (!gen.getSolicitud().getNivel().esBronce()) {
 				if (gen.getSolicitud().getEsquema() != EsquemaRestauracion.Link) {
 					Camino alternativo = gen.getAlternativo();
-					if (alternativo.getDestino() != null) {
+					//if (alternativo.getDestino() != null) {
+					if (alternativo != null) {
 						contadorInterno(alternativo.getEnlaces(),solution);
 					}
 				} else {
@@ -156,7 +160,7 @@ public class QOP extends Problem {
 		else if(solution.contadorFailBroncePrimario!=0)
 			solution.setObjective(1, solution.contadorFailBroncePrimario);
 		else
-			solution.setObjective(1, 999);
+			solution.setObjective(1, 0);
 		
 		//Aplicacion del objetivo 2 - servicios sin proteccion
 		if (solution.contadorFailOroAlternativo!=0)
@@ -164,7 +168,7 @@ public class QOP extends Problem {
 		else if(solution.contadorFailPlataAlternativo!=0)
 			solution.setObjective(2, solution.contadorFailPlataAlternativo);
 		else 
-			solution.setObjective(2, 999);
+			solution.setObjective(2, 0);
 		
 		
 		// Fórmula de Costo de una Solución

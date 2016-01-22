@@ -91,9 +91,9 @@ public class DominanceComparator implements Comparator {
     for (int i = 0; i < solution1.getNumberOfObjectives(); i++) {
       value1 = solution1.getObjective(i);
       value2 = solution2.getObjective(i);
-      if (value1 > value2) {
+      if (value1 < value2) {
         flag = -1;
-      } else if (value1 < value2) {
+      } else if (value1 > value2) {
         flag = 1;
       } else {
         flag = 0;

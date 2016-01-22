@@ -167,12 +167,16 @@ public class NSGAII extends Algorithm {
     Ranking ranking = new Ranking(population);
     evaluations = 0;
     int cantIt = 0;
+    int size, tamanho = 0;
     // Generations 
     
     while (evaluations < maxEvaluations) {
+    	
+    	size = population.getIndividuos().size();
+    	tamanho = (size*size)+size;
 
-    	offspringPopulation = new Poblacion(populationSize*populationSize+populationSize);
-    	copyPopulation = new Poblacion(populationSize*populationSize+populationSize);
+    	offspringPopulation = new Poblacion(tamanho);
+    	copyPopulation = new Poblacion(tamanho);
       
       //population.evaluar();
       
@@ -195,9 +199,10 @@ public class NSGAII extends Algorithm {
 	          Collection<Individuo> selectos = seleccionOp.seleccionar(population);
 	          
 	          population.cruzar(selectos, probMutacion);
-	          copyPopulation.copiarPoblacion(offspringPopulation);
+	          /*copyPopulation.copiarPoblacion(offspringPopulation);
 	          Poblacion mejores = getFront(copyPopulation);
-	          population.siguienteGeneracion(mejores);
+	          population.siguienteGeneracion(mejores);*/
+	          population.siguienteGeneracion();
 	          
 	          evaluations++;
 	          

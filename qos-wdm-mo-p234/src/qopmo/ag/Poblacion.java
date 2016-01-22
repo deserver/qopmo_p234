@@ -103,6 +103,13 @@ public class Poblacion {
 		}
 	}
 	
+	public void copiarSolutionList(Poblacion population){
+		for (Solution s : population.getSolutionList()){
+			this.solutionsList.add(s);
+		}
+			
+	}
+	
 	public Poblacion union(Poblacion population){
 		int newSize = this.size() + population.size();
 		if (newSize < this.capacity)
@@ -127,11 +134,13 @@ public class Poblacion {
 			newSize = this.capacity;
 		
 	    Poblacion union = new Poblacion(newSize);                
-	    for (int i = 0; i < this.size(); i++) {   
+	    for (int i = 0; i < this.size(); i++) { 
+	    	if (this.get(i).getCosto() > 0 && this.get(i).getCosto()< Double.MAX_VALUE)
 	    		union.add(this.get(i));
 	    } // for
 
 	    for (int i = this.size(); i < (this.size() + population.size()); i++) {
+	    	if (population.get(i-this.size()).getCosto() > 0 && population.get(i-this.size()).getCosto()< Double.MAX_VALUE)
 	    		union.add(population.get(i-this.size()));
 	    } // for
 	    
@@ -140,6 +149,12 @@ public class Poblacion {
 
 	public List<Solution> getSolutionList(){
 		return this.solutionsList;
+	}
+	
+	public void setSolutionList(List<Solution> solutionList){
+		for (Solution s : solutionList){
+			this.solutionsList.add(s);
+		}
 	}
 	
 	public static Red getRed() {
@@ -651,16 +666,14 @@ public class Poblacion {
 	   public void printObjectivesToFile(String path){
 	     try {
 	       /* Open the file */
-	       FileOutputStream fos   = new FileOutputStream(path)     ;
+	       FileOutputStream fos   = new FileOutputStream(path,true)     ;
 	       OutputStreamWriter osw = new OutputStreamWriter(fos)    ;
 	       BufferedWriter bw      = new BufferedWriter(osw)        ;
-
 	       for (Solution aSolutionsList_ : solutionsList) {
 	         //if (this.vector[i].getFitness()<1.0) {
 	         bw.write(aSolutionsList_.toString());
-	         System.out.println(aSolutionsList_.toString());
-	         aSolutionsList_.imprimirCosto();
-	         System.out.println("");
+	         //System.out.println(aSolutionsList_.toString());
+	         //aSolutionsList_.imprimirCosto();
 	         //System.out.println(this.almacenarMejor(0, aSolutionsList_));
 	         bw.newLine();
 	         //}
@@ -681,7 +694,7 @@ public class Poblacion {
 	    */
 	   public void printVariablesToFile(String path){
 	     try {
-	       FileOutputStream fos   = new FileOutputStream(path,true)     ;
+	       FileOutputStream fos   = new FileOutputStream(path)     ;
 	       OutputStreamWriter osw = new OutputStreamWriter(fos)    ;
 	       BufferedWriter bw      = new BufferedWriter(osw)        ;            
 
@@ -689,12 +702,12 @@ public class Poblacion {
 	    	 //int numberOfVariables = solutionsList.get(0).getDecisionVariables().length ;
 	         int numberOfVariables = solutionsList.size();
 	         for (Solution aSolutionsList_ : solutionsList) {
-	           for (int j = 0; j < numberOfVariables; j++){
+	           //for (int j = 0; j < numberOfVariables; j++){
 	             //bw.write(aSolutionsList_.getDecisionVariables()[j].toString() + " ");
 	           	 bw.write(aSolutionsList_.imprimirCosto2());
-	           	 bw.write(aSolutionsList_.toString());
+	           	 //bw.write(aSolutionsList_.toString());
 	           	 //System.out.println(aSolutionsList_.toString());
-	           }
+	           //}
 	             
 	           bw.newLine();
 	         }

@@ -479,7 +479,7 @@ public class Servicio implements Comparable<Servicio> {
 		 * Se bloquean los canales intermedios entre Medio1 y Medio2
 		 */
 		int secuencia = 1;
-		while (subCaminoDistancia > 0) {
+		while (subCaminoDistancia > 0 && iterSaltos.hasNext()) {
 			CanalOptico canal = iterSaltos.next().getCanal();
 			actual = canal.getOtroExtremo(actual);
 
@@ -562,10 +562,10 @@ public class Servicio implements Comparable<Servicio> {
 		Nodo destino = solicitud.getDestino();
 		Exclusividad e = solicitud.getExclusividadPrimario();
 
-		//if (origen != null && destino != null){
+		if (origen != null && destino != null){
 			primario = origen.dijkstra(destino, e);
 			setPrimario();
-		//}
+		}
 
 		if (solicitud.getNivel() != Nivel.Bronce) {
 			buscarAlternativo();
