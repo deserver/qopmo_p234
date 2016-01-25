@@ -101,14 +101,14 @@ public class NSGAII_main {
 	    
 	    int corridas;
 	    String caso;
-	    nrocaso = 18;
+	    nrocaso = 23;
 	    Poblacion population = new Poblacion(50);
 	    ArrayList<Poblacion> gralPopulation = new ArrayList<Poblacion>();
-	    while (nrocaso < 19){
+	    while (nrocaso < 24){
 	    	corridas = 1;
 	    	int index = 0;
 	    	long initTime2 = System.currentTimeMillis();
-		    while(corridas < 30){
+		    while(corridas < 3){
 			    algorithm = new NSGAII(problem, nrocaso);
 			    caso = casosDePrueba[nrocaso];
 			    
@@ -154,7 +154,7 @@ public class NSGAII_main {
 			    long estimatedTime = System.currentTimeMillis() - initTime;
 			    //gralPopulation.copiarPoblacion(population);
 			    gralPopulation.add(population);
-			    gralPopulation.get(index).printVariablesToFile("Conjunto_Pareto_PreFinal_01"+corridas);
+			    //gralPopulation.get(index).printVariablesToFile("Conjunto_Pareto_PreFinal_01"+corridas);
 				
 				
 			    // Result messages 
@@ -198,15 +198,17 @@ public class NSGAII_main {
 		//if (population != null)
 			//population.printFinalResults();
 			
-		nrocaso++;
 		
-  		}
 	    algorithm = new NSGAII(problem, 0);
 	    Poblacion pfinal = getSoluciones(gralPopulation);
-	    pfinal.printVariablesToFile("Conjunto_Pareto_PreFinal_"+40);
+	    //pfinal.printVariablesToFile("Conjunto_Pareto_PreFinal_"+casosDePrueba[nrocaso]);
 	    Poblacion finalPopulation = algorithm.getFront(pfinal);
-	    finalPopulation.printVariablesToFile("Conjunto_Pareto_Final_"+40);
+	    finalPopulation.printVariablesToFile("Conjunto_Pareto_Final_"+casosDePrueba[nrocaso]);
 	    System.out.println("FIN Prueba Algoritmo Genetico. (Segment-Oriented).");
+	    nrocaso++;
+		
+  		}
+
 	  
   } //main
   
@@ -233,13 +235,27 @@ public class NSGAII_main {
 
 	  for (int i=0; i<population.size(); i++){
 		  for (Solution s : population.get(i).getSolutionList()){
-			  if (!finalList.contains(s)){
+			 // if (!finalList.contains(s) && esDistinto(finalList, s)){
+			  if (!finalList.contains(s) ){
 				  finalList.add(s);
 			  }
 		  }
 	  }
 	  pfinal.setSolutionList(finalList);
 	  return pfinal;
+  }
+  
+  public static boolean esDistinto(List<Solution> finalList, Solution sol){
+	  boolean flag = true;
+	  for (Solution s : finalList){
+		  for (int i=0; i<s.getNumberOfObjectives(); i++){
+			  if (s.getObjective(i) == sol.getObjective(i)){
+				  flag = false;
+				  break;
+			  }
+		  }
+	  }
+	  return flag;
   }
   public int getNroCaso(){
 	  return this.nrocaso;
