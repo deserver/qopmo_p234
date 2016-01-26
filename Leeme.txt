@@ -1,0 +1,40 @@
+Para montar los fuentes:
+1. Crear una Base de datos en postgres con nombre "tesis", perteneciente al usuario "tesis".
+2. Montar los fuentes en el IDE eclipse u otro de eleccion.
+3. Importar las librerias ubicadas en /lib al proyecto.
+4. Configuar el archivo META-INF.persistence.xml si fuese necesario
+5. Configuar el archivo log4j.properties si fuese necesario
+
+Para correr las pruebas:
+1. Prueba 1:
+Ubicado en el proyecto "qos-wdm-mo-v2"
+	a. Ejecutar el archivo qopmo.nsgaII.CargarPrueba1.java con el parametro "genRedes".
+	b1. Ejecutar qopmo.nsgaII.testLink.NSGAII_main_testLink.java para ejecutar la prueba de Link.
+	b2. Ejecutar qopmo.nsgaII.testLink.NSGAII_main_testPath.java para ejecutar la prueba de Path.
+	b3. Ejectuar qopmo.nsgaII.testLink.NSGAII_main_testSegment.java para ejecutar la prueba de Segment.
+
+2. Prueba 2:
+Ubicado en el proyecto "qos-wdm-mo-p234"
+	a. Asegurarse que en qopmo.wdm.Nodo, no este comentado @GeneratedValue del Id.
+	b. Ejecutar qopmo.nsgaII.prueba2CargarPrueba2.java con el parametro genRedes.
+	c. Controlar el id asignado en la bd de la tabla redes, a Nsfnet.
+	d. Ejecutar qopmo.nsgaII.prueba2.NSGAII_main.java.
+
+3. Prueba 3:
+Ubicado en el proyecto "qos-wdm-mo-p234"
+*Controlar el nro de solicitudes en el archivo datos/solicitudes/solicitudes-n
+	a. Ejecutar qopmo.nsgaII.prueba3.CargarPrueba3.java
+	b. Ejecutar qopmo.nsgaII.prueba3.NSGAII_main.java 
+	
+	Para la el test2:
+		a. Ejecutar qopmo.nsgaII.prueba3.test2.CargarPrueba3.java
+		b. Ejecutar qopmo.nsgaII.prueba3.test2.NSGAII_main.java
+
+4. Prueba 4:
+Ubicado en el proyecto "qos-wdm-mo-p234"
+*En qopmo.wdm.Nodo, el @GeneratedValue del Id debe estar comentado.
+	a. Ejecutar qopmo.nsgaII.prueba4.CargarRedes.java
+	b. Ejecutar qopmo.nsgaII.prueba4.CargarCasosDePrueba.java
+	c. Ejecutar qopmo.nsgaII.prueba4.CrearCasos.java obs:Verificar el id de la red Nsfnet determinada en la bd por cargarredes.java.
+	d. Ejecutar los casos de prueba ubicados en qopmo.nsgaII.prueba3.testGn
+obs:Verificar el id de la red Nsfnet determinada en la bd por cargarredes.java.

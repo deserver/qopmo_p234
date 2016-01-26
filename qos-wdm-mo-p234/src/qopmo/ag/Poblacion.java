@@ -718,5 +718,28 @@ public class Poblacion {
 	       e.printStackTrace();
 	     }       
 	   } // printVariablesToFile
+	   
+	   public void printResults(String path, double[] results){
+		     try {
+		       FileOutputStream fos   = new FileOutputStream(path, true)     ;
+		       OutputStreamWriter osw = new OutputStreamWriter(fos)    ;
+		       BufferedWriter bw      = new BufferedWriter(osw)        ;            
+
+		       bw.write(printAux(results));
+		       bw.close();
+		     }catch (IOException e) {
+		       Configuration.logger_.severe("Error acceding to the file");
+		       e.printStackTrace();
+		     }       
+		   } // printVariablesToFile
+	   
+	   public String printAux(double[] results ){
+		   String s;
+		   s = "F.O. 1: " + results[0]+ "\n";
+		   s += "F.O. 2: "+ results[1]+ "\n";
+		   s += "F.0. 3: "+results[2]+ "\n";
+		   s += "F.0. 4: "+results[3]+ "\n";
+		   return s;
+	   }
 
 }

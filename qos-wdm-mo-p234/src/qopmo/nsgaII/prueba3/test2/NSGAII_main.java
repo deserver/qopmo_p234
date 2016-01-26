@@ -101,14 +101,14 @@ public class NSGAII_main {
 	    
 	    int corridas;
 	    String caso;
-	    nrocaso = 23;
+	    nrocaso = 18;
 	    Poblacion population = new Poblacion(50);
 	    ArrayList<Poblacion> gralPopulation = new ArrayList<Poblacion>();
-	    while (nrocaso < 24){
+	    while (nrocaso < 19){
 	    	corridas = 1;
 	    	int index = 0;
 	    	long initTime2 = System.currentTimeMillis();
-		    while(corridas < 3){
+		    while(corridas < 30){
 			    algorithm = new NSGAII(problem, nrocaso);
 			    caso = casosDePrueba[nrocaso];
 			    
@@ -203,12 +203,14 @@ public class NSGAII_main {
 	    Poblacion pfinal = getSoluciones(gralPopulation);
 	    //pfinal.printVariablesToFile("Conjunto_Pareto_PreFinal_"+casosDePrueba[nrocaso]);
 	    Poblacion finalPopulation = algorithm.getFront(pfinal);
-	    finalPopulation.printVariablesToFile("Conjunto_Pareto_Final_"+casosDePrueba[nrocaso]);
-	    System.out.println("FIN Prueba Algoritmo Genetico. (Segment-Oriented).");
+	    double results[] = calcularPromedios(pfinal);
+	    finalPopulation.printVariablesToFile("Conjunto_Pareto_Final_"+casosDePrueba[nrocaso]+".txt");
+	    finalPopulation.printResults("Conjunto_Pareto_Final_"+casosDePrueba[nrocaso]+".txt", results);
+	    
 	    nrocaso++;
 		
   		}
-
+	    System.out.println("FIN Prueba Algoritmo Genetico. (Segment-Oriented).");
 	  
   } //main
   
@@ -235,8 +237,8 @@ public class NSGAII_main {
 
 	  for (int i=0; i<population.size(); i++){
 		  for (Solution s : population.get(i).getSolutionList()){
-			 // if (!finalList.contains(s) && esDistinto(finalList, s)){
-			  if (!finalList.contains(s) ){
+			  if (!finalList.contains(s) && esDistinto(finalList, s)){
+			  //if (!finalList.contains(s) ){
 				  finalList.add(s);
 			  }
 		  }
@@ -246,16 +248,38 @@ public class NSGAII_main {
   }
   
   public static boolean esDistinto(List<Solution> finalList, Solution sol){
-	  boolean flag = true;
+	  boolean flag = false;
 	  for (Solution s : finalList){
 		  for (int i=0; i<s.getNumberOfObjectives(); i++){
 			  if (s.getObjective(i) == sol.getObjective(i)){
+				  flag = true;
+			  }
+			  else{
 				  flag = false;
 				  break;
 			  }
 		  }
+		  if (flag){
+			  break;
+		  }
 	  }
-	  return flag;
+	  
+	  return !flag;
+  }
+  
+  public static double[] calcularPromedios(Poblacion population){
+	  int obj = population.getSolutionList().get(0).getNumberOfObjectives();
+	  double results[] = new double[obj];
+	  for (Solution s: population.getSolutionList()){
+		  for (int i=0; i<obj; i++){
+			  results[i] = results[i] + s.getObjective(i);
+		  }
+	  }
+	  for (int i=0; i<obj; i++){
+		  results[i] = results[i]/population.getSolutionList().size();
+		  System.out.println("F.O. "+ i +": "+results[i]);
+	  }
+	  return results;
   }
   public int getNroCaso(){
 	  return this.nrocaso;

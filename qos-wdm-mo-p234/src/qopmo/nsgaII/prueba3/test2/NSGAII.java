@@ -424,47 +424,7 @@ public class NSGAII extends Algorithm {
 	
 	public Poblacion getFront(Poblacion population){
 		Ranking ranking = new Ranking(population);
-		Distance distance = new Distance();
-		
-		int remain = population.size();
-		int index = 0;
-		Poblacion front = null;
-		Poblacion poblacion = new Poblacion(population.size());
-		
-		front = ranking.getSubfront(index);
-		
-	      while ( front!= null && (remain > 0)  && (remain >= front.size())) {
-	        //Assign crowding distance to individuals
-	        distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
-	        //Add the individuals of this front
-	        for (int k = 0; k < front.size(); k++) {
-	          poblacion.add(front.get(k));
-	        } // for
-	
-	        //Decrement remain
-	        remain = remain - front.size();
-	
-	        //Obtain the next front
-	        index++;
-	        if (remain > 0) {
-	          front = ranking.getSubfront(index);
-	        } // if        
-	      } // while
-	
-	      if (front != null){
-		      // Remain is less than front(index).size, insert only the best one
-		      if (remain > 0) {  // front contains individuals to insert                        
-		        distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
-		        front.sort(new CrowdingComparator());
-		        for (int k = 0; k < remain; k++) {
-		          poblacion.add(front.get(k));
-		        } // for
-		      }
-	        remain = 0;
-	      } // if    
-	
-		
-		return poblacion;
+		return ranking.getSubfront(0);
 	}
 
 } // NSGA-II
