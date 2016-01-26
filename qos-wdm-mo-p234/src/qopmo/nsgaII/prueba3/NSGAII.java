@@ -305,7 +305,7 @@ public class NSGAII extends Algorithm {
 				ranking = new Ranking(population);
 				if (ranking.getSubfront(0) != null){
 					ranking.getSubfront(0).printParcialResults();
-					ranking.getSubfront(0).printVariablesToFile("VAR_Parcial_p3_"+caso);
+					//ranking.getSubfront(0).printVariablesToFile("VAR_Parcial_p3_"+caso);
 				}
 				//((Solution) p.getMejor()).imprimirCosto();
 				long estimatedTime2 = System.currentTimeMillis() - initTime;
