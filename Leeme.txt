@@ -16,7 +16,7 @@ Ubicado en el proyecto "qos-wdm-mo-v2"
 2. Prueba 2:
 Ubicado en el proyecto "qos-wdm-mo-p234"
 	a. Asegurarse que en qopmo.wdm.Nodo, no este comentado @GeneratedValue del Id.
-	b. Ejecutar qopmo.nsgaII.prueba2CargarPrueba2.java con el parametro genRedes.
+	b. Ejecutar qopmo.nsgaII.prueba2.CargarPrueba2.java con el parametro genRedes.
 	c. Controlar el id asignado en la bd de la tabla redes, a Nsfnet.
 	d. Ejecutar qopmo.nsgaII.prueba2.NSGAII_main.java.
 

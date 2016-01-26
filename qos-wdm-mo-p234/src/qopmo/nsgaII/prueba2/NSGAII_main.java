@@ -136,6 +136,7 @@ public class NSGAII_main {
 			    population.printVariablesToFile("VAR_"+caso);    
 			    logger_.info("Objectives values have been writen to file FUN");
 			    population.printObjectivesToFile("FUN_"+caso);
+			    population.printFinalResults();
 			}else{
 				System.out.println("No arrojo resultados");
 			}
