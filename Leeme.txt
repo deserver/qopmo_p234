@@ -1,4 +1,5 @@
 Para montar los fuentes:
+0. Instalar hibernate.
 1. Crear una Base de datos en postgres con nombre "tesis", perteneciente al usuario "tesis".
 2. Montar los fuentes en el IDE eclipse u otro de eleccion.
 3. Importar las librerias ubicadas en /lib al proyecto.
